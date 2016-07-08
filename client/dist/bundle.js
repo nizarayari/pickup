@@ -21130,7 +21130,7 @@
 	            _react2.default.createElement(
 	              'th',
 	              null,
-	              ' '
+	              _react2.default.createElement('img', { src: './assets/letter-x' })
 	            ),
 	            _react2.default.createElement(
 	              'th',

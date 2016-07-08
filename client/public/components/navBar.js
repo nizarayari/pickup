@@ -34,7 +34,7 @@ class NavBar extends Component {
       <table id="addTableID" className="table table-hover">
         <thead>
           <tr>
-            <th> </th>
+            <th><img src="./assets/letter-x"/></th>
             <th>Add a new poll</th>
           </tr>
         </thead>
