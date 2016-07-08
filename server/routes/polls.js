@@ -12,7 +12,7 @@ var db = require('../db/db.js');
 // }
 
 router.post ('/polls', function (req, res) {
-  var userId = req.user.id;
+  var userId = req.body.user.id;
   var poll = req.body.poll
 
   db.query('INSERT INTO Polls SET  title = ?, content = ?, vote_score = ?, created_at = ?, user_id = ?;',
