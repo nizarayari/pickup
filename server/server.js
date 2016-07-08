@@ -1,3 +1,4 @@
+
 //***********************************Modules**************************************************************************
 
 var express = require('express');
@@ -12,13 +13,12 @@ var polls = require('./routes/polls.js')
 
 //____________________________________CONFIG____________________________________
 
-
 var port = process.env.PORT || 3000;
+
 
 app.use(bodyParser.json());
 
 app.use('/api/polls/', polls);
-
 
 
 
@@ -35,10 +35,9 @@ app.use(function(req, res, next) {
 
 // + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
 
-
-
 //Boot server -----------------------------------------------------------
 
 app.listen(port);
 
 console.log('Server tuning into Port ' + port);
+
