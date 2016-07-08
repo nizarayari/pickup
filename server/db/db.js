@@ -17,17 +17,15 @@ var db = mysql.createConnection({
 db.on('error', function() { console.error("ERROR in database") });
 
 //Init DB setup when server boots
-fs.readFile(__dirname + './poll.sql', 'utf-8', function(err, data) {
+fs.readFile(__dirname + '/polls.sql', 'utf-8', function(err, data) {
   //Multiple statement work-around
-  var commands = data.split(";"); 
+  var commands = data.split(";");
+  commands.pop(); 
   commands.forEach (function(command) {
     db.query(command, function(err, results) {
       if (err) {
         console.error(err);
       } 
-      else { 
-
-      }
     });
   });
 });
