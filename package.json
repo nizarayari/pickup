@@ -18,6 +18,7 @@
   "homepage": "https://github.com/mikeynova/PollingPlace#readme",
   "dependencies": {
     "express": "^4.14.0",
+    "jquery": "^3.1.0",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "webpack": "^1.13.1"
