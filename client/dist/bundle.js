@@ -21056,18 +21056,9 @@
 	    return _this;
 	  }
 
-	  //   <div class="navbar-header">
-	  //   <a class="navbar-brand" href="#">
-	  //     <img alt="Brand" src="..." />
-	  //   </a>
-	  // </div>
-
-
 	  _createClass(NavBar, [{
 	    key: 'nav',
 	    value: function nav() {
-	      var _React$createElement;
-
 	      return _react2.default.createElement(
 	        'ul',
 	        { className: 'nav nav-tabs' },
@@ -21077,7 +21068,7 @@
 	          _react2.default.createElement(
 	            'a',
 	            { href: '#' },
-	            _react2.default.createElement('img', (_React$createElement = { alt: 'Brand', src: 'https://sopreso.com/images/poll-2.png', className: 'img-responsive' }, _defineProperty(_React$createElement, 'alt', 'Responsive image'), _defineProperty(_React$createElement, 'height', '10%'), _React$createElement))
+	            _react2.default.createElement('img', _defineProperty({ height: 45, width: 45, alt: 'Brand', src: 'https://sopreso.com/images/poll-2.png', className: 'img-responsive' }, 'alt', 'Responsive image'))
 	          )
 	        ),
 	        _react2.default.createElement(

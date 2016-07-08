@@ -10,20 +10,16 @@ class NavBar extends Component {
     }
   }
 
-    //   <div class="navbar-header">
-    //   <a class="navbar-brand" href="#">
-    //     <img alt="Brand" src="..." />
-    //   </a>
-    // </div>
   nav() {
     return(
       <ul className="nav nav-tabs">
         <li role="presentation" className="active"><a href="#">
-          <img alt="Brand" src="https://sopreso.com/images/poll-2.png" className="img-responsive" alt="Responsive image" height="10%"/>
-        </a></li>
-        <li role="presentation"><a href="#">Add</a></li>
-        <li role="presentation"><a href="#">Pending</a></li>
-        <li role="presentation"><a href="#">Voted</a></li>
+          <img height={45} width={45} alt="Brand" src="https://sopreso.com/images/poll-2.png" className="img-responsive" alt="Responsive image"/>
+          </a>
+        </li>
+          <li role="presentation"><a href="#">Add</a></li>
+          <li role="presentation"><a href="#">Pending</a></li>
+          <li role="presentation"><a href="#">Voted</a></li>
       </ul>
       
     )
