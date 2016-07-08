@@ -21119,22 +21119,12 @@
 	            _react2.default.createElement(
 	              'th',
 	              null,
-	              '#'
+	              '  '
 	            ),
 	            _react2.default.createElement(
 	              'th',
 	              null,
-	              'Poll Name'
-	            ),
-	            _react2.default.createElement(
-	              'th',
-	              null,
-	              'Voting Duration'
-	            ),
-	            _react2.default.createElement(
-	              'th',
-	              null,
-	              'Poll Description'
+	              'Add a new poll'
 	            )
 	          )
 	        ),
@@ -21147,17 +21137,35 @@
 	            _react2.default.createElement(
 	              'th',
 	              { scope: 'row' },
-	              '1'
+	              'Poll Name'
 	            ),
 	            _react2.default.createElement(
 	              'td',
 	              null,
 	              _react2.default.createElement('input', { type: 'text', className: 'form-control' })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'th',
+	              { scope: 'row' },
+	              'Voting Duration'
 	            ),
 	            _react2.default.createElement(
 	              'td',
 	              null,
 	              _react2.default.createElement('input', { type: 'text', className: 'form-control' })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'th',
+	              { scope: 'row' },
+	              'Poll Description'
 	            ),
 	            _react2.default.createElement(
 	              'td',
@@ -21168,22 +21176,24 @@
 	        )
 	      );
 	    }
-
-	    // showTable() {
-	    //   // $('#addTableID').show()
-	    //   // console.log('clicked')
-	    //   return
-	    // }
-
+	  }, {
+	    key: 'showTable',
+	    value: function showTable() {
+	      return this.addTable();
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var style = {
-	        '#addTableID': show
+	      var styleHide = {
+	        visibility: 'hidden'
 	      };
+	      var styleShow = {
+	        visibility: 'show'
+	      };
+
 	      var navRender = this.nav();
 	      var addTableRender = this.addTable();
-	      // let showTableRender = this.showTable()
+	      var showTableRender = this.showTable();
 
 	      return _react2.default.createElement(
 	        'div',
@@ -21195,10 +21205,8 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          null,
-	          addTableRender,
-	          ',',
-	          style
+	          { style: styleHide },
+	          addTableRender
 	        )
 	      );
 	    }

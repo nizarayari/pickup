@@ -31,17 +31,21 @@ class NavBar extends Component {
       <table id="addTableID" className="table table-hover">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Poll Name</th>
-            <th>Voting Duration</th>
-            <th>Poll Description</th>
+            <th>  </th>
+            <th>Add a new poll</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row">1</th>
+            <th scope="row">Poll Name</th>
             <td><input type="text" className="form-control"/></td>
+          </tr>
+          <tr>
+            <th scope="row">Voting Duration</th>
             <td><input type="text" className="form-control"/></td>
+          </tr>
+          <tr>
+            <th scope="row">Poll Description</th>
             <td><input type="text" className="form-control"/></td>
           </tr>
         </tbody>
@@ -49,33 +53,29 @@ class NavBar extends Component {
     )
   }
 
-  // showTable() {
-  //   // $('#addTableID').show()
-  //   // console.log('clicked')
-  //   return 
-  // }
+  showTable() {
+    return this.addTable()
+  }
 
   render() {
-    let style = {
-      '#addTableID': show
+    const styleHide = {
+      visibility: 'hidden'
     }
+    const styleShow = {
+      visibility: 'show'
+    }
+
     let navRender = this.nav()
     let addTableRender = this.addTable()
-    // let showTableRender = this.showTable()
+    let showTableRender = this.showTable()
 
     return(
       <div>
           <div>{ navRender }</div>
-          <div>
-          { addTableRender },
-          { style }
-          </div>
-
+          <div style={styleHide}>{ addTableRender }</div>
       </div>
     )
   }
-
 }
-
 
 export default NavBar
