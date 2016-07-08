@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-
+import path from 'path';
 
 class NavBar extends Component {
   constructor(props) {
@@ -11,6 +11,10 @@ class NavBar extends Component {
     }
   }
 
+  componentDidMount() {
+    $('#addTableID').hide()
+  }
+
   nav() {
     return(
       <ul className="nav nav-tabs">
@@ -18,20 +22,19 @@ class NavBar extends Component {
           <img height={35} width={35} alt="Brand" src="https://sopreso.com/images/poll-2.png" className="img-responsive" alt="Responsive image"/>
           </a>
         </li>
-          <li onClick={this.showTable} role="presentation"><a href="#">Add</a></li>
+          <li onClick={() => $('#addTableID').show()} role="presentation"><a href="#">Add</a></li>
           <li role="presentation"><a href="#">Pending</a></li>
           <li role="presentation"><a href="#">Voted</a></li>
       </ul>     
     )  
   }
 
-
   addTable() {
     return(
       <table id="addTableID" className="table table-hover">
         <thead>
           <tr>
-            <th>  </th>
+            <th> </th>
             <th>Add a new poll</th>
           </tr>
         </thead>
@@ -53,29 +56,39 @@ class NavBar extends Component {
     )
   }
 
-  showTable() {
-    return this.addTable()
-  }
+//   render() {
+
+//   const styleHide = {
+//       visibility: 'hidden'
+//   }
+//   let navRender = this.nav()
+//   let addTableRender = this.addTable()
+
+//     return(
+//       <div>
+//           <div>{ navRender }</div>
+//           <div style={styleHide}>{ addTableRender }</div>
+//       </div>
+//     )
+//   }
+// }
 
   render() {
-    const styleHide = {
-      visibility: 'hidden'
-    }
-    const styleShow = {
-      visibility: 'show'
-    }
 
-    let navRender = this.nav()
-    let addTableRender = this.addTable()
-    let showTableRender = this.showTable()
+  const styleHide = {
+      visibility: 'hidden'
+  }
+  let navRender = this.nav()
+  let addTableRender = this.addTable()
 
     return(
       <div>
           <div>{ navRender }</div>
-          <div style={styleHide}>{ addTableRender }</div>
+          <div>{ addTableRender }</div>
       </div>
     )
   }
 }
+
 
 export default NavBar
