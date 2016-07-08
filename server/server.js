@@ -5,16 +5,20 @@ var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
 var request = require('request');
-var route = require('/router')
+var polls = require('./routes/polls.js')
 
-//*************************************************************************
 
-//____________________________________CONFIG______________________________
+//******************************************************************************
+
+//____________________________________CONFIG____________________________________
 
 
 var port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+
+app.use('/api/polls/', polls);
+
 
 
 
@@ -32,10 +36,9 @@ app.use(function(req, res, next) {
 // + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
 
 
+
 //Boot server -----------------------------------------------------------
 
 app.listen(port);
 
 console.log('Server tuning into Port ' + port);
-
-module.exports = app;
