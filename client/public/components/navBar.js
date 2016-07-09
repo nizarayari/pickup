@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import path from 'path';
 
+
 class NavBar extends Component {
   constructor(props) {
     super(props)
@@ -31,28 +32,41 @@ class NavBar extends Component {
 
   addTable() {
     return(
-      <table id="addTableID" className="table table-hover">
-        <thead>
-          <tr>
-            <th><img src="./assets/letter-x"/></th>
-            <th>Add a new poll</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Poll Name</th>
-            <td><input type="text" className="form-control"/></td>
-          </tr>
-          <tr>
-            <th scope="row">Voting Duration</th>
-            <td><input type="text" className="form-control"/></td>
-          </tr>
-          <tr>
-            <th scope="row">Poll Description</th>
-            <td><input type="text" className="form-control"/></td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-8">
+            <table id="addTableID" className="table table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    <img height={15} width={15} id="x" onClick={() => $('#addTableID').hide()}src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/multiply-.png" className="img-responsive" alt="Responsive image"/>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input placeholder='Sport' type="text" className="form-control"/></td>
+                </tr>
+                <tr>
+                  <td><input placeholder='Rules' type="text" className="form-control"/></td>
+                </tr>
+                <tr>
+                  <td><input placeholder='Time' type="text" className="form-control"/></td>
+                </tr>
+                <tr>
+                  <td><input placeholder='Players' type="text" className="form-control"/></td>
+                </tr>
+                <tr>
+                  <td><input placeholder='Max Players' type="text" className="form-control"/></td>
+                </tr>
+                <tr>
+                  <td><input placeholder='Created by' type="text" className="form-control"/></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> 
+      </div>
     )
   }
 
@@ -75,9 +89,6 @@ class NavBar extends Component {
 
   render() {
 
-  const styleHide = {
-      visibility: 'hidden'
-  }
   let navRender = this.nav()
   let addTableRender = this.addTable()
 

@@ -7,3 +7,10 @@
 	/*visibility: hidden;*/
 /*}*/
 
+#x {
+	cursor: pointer
+}
+
+#addTableID {
+	width: 40;
+}
