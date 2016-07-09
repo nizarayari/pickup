@@ -60,14 +60,35 @@ module.exports = {
         connection.query(insert, insertValues, function(err) {
           if (err) {console.error('error 2 in db addGame :', err)}
           else { callback(true); }
-
-        })
-      } else {
-        callback(false);
-      }
+        });
+      } 
+      else { callback(false); }
     });
   },
 
+
+  addLocation : function(address, city, state, zip_code, callback) {
+    var check = 'SELECT * FROM Locations WHERE address = ? AND zip_code = ?'
+    var checkValues = [address, zip_code];
+    var insert = "INSERT into Locations (address, city, state, zip_code);";
+    var insertValues = [address, city, state, zip_code];
+
+    connection.query(check, checkValues, function(err, data) {
+      if (err) {
+        console.error("check query error in db addLocation : ", err);
+      }
+      if (data.length === 0) {
+        connection.query(insert, insertValues, function(err) {
+          if (err) {console.error("insert query error in db addLocation : ", err); }
+          else { callback(true); }
+        });
+      }
+      else { callback(false); }
+    })
+
+  }, 
+
+  
 
 
   // 5-second keep-alive request
