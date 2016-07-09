@@ -21119,69 +21119,90 @@
 	    key: 'addTable',
 	    value: function addTable() {
 	      return _react2.default.createElement(
-	        'table',
-	        { id: 'addTableID', className: 'table table-hover' },
+	        'div',
+	        { className: 'container' },
 	        _react2.default.createElement(
-	          'thead',
-	          null,
+	          'div',
+	          { className: 'row' },
 	          _react2.default.createElement(
-	            'tr',
-	            null,
+	            'div',
+	            { className: 'col-lg-8' },
 	            _react2.default.createElement(
-	              'th',
-	              null,
-	              _react2.default.createElement('img', { src: './assets/letter-x' })
-	            ),
-	            _react2.default.createElement(
-	              'th',
-	              null,
-	              'Add a new poll'
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'tbody',
-	          null,
-	          _react2.default.createElement(
-	            'tr',
-	            null,
-	            _react2.default.createElement(
-	              'th',
-	              { scope: 'row' },
-	              'Poll Name'
-	            ),
-	            _react2.default.createElement(
-	              'td',
-	              null,
-	              _react2.default.createElement('input', { type: 'text', className: 'form-control' })
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'tr',
-	            null,
-	            _react2.default.createElement(
-	              'th',
-	              { scope: 'row' },
-	              'Voting Duration'
-	            ),
-	            _react2.default.createElement(
-	              'td',
-	              null,
-	              _react2.default.createElement('input', { type: 'text', className: 'form-control' })
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'tr',
-	            null,
-	            _react2.default.createElement(
-	              'th',
-	              { scope: 'row' },
-	              'Poll Description'
-	            ),
-	            _react2.default.createElement(
-	              'td',
-	              null,
-	              _react2.default.createElement('input', { type: 'text', className: 'form-control' })
+	              'table',
+	              { id: 'addTableID', className: 'table table-hover' },
+	              _react2.default.createElement(
+	                'thead',
+	                null,
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'th',
+	                    null,
+	                    _react2.default.createElement('img', { height: 15, width: 15, id: 'x', onClick: function onClick() {
+	                        return (0, _jquery2.default)('#addTableID').hide();
+	                      }, src: 'https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/multiply-.png', className: 'img-responsive', alt: 'Responsive image' })
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'tbody',
+	                null,
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement('input', { placeholder: 'Sport', type: 'text', className: 'form-control' })
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement('input', { placeholder: 'Rules', type: 'text', className: 'form-control' })
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement('input', { placeholder: 'Time', type: 'text', className: 'form-control' })
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement('input', { placeholder: 'Players', type: 'text', className: 'form-control' })
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement('input', { placeholder: 'Max Players', type: 'text', className: 'form-control' })
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement('input', { placeholder: 'Created by', type: 'text', className: 'form-control' })
+	                  )
+	                )
+	              )
 	            )
 	          )
 	        )
