@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import path from 'path';
 
+
 class NavBar extends Component {
   constructor(props) {
     super(props)
@@ -88,9 +89,6 @@ class NavBar extends Component {
 
   render() {
 
-  const styleHide = {
-      visibility: 'hidden'
-  }
   let navRender = this.nav()
   let addTableRender = this.addTable()
 
