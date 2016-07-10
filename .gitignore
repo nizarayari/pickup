@@ -1,3 +1,5 @@
 .env
 
+dbConfig.js
+
 node_modules/

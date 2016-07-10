@@ -9,13 +9,7 @@ var db_config = require('./dbConfig.js');
 
 //init connection from Poll_db
 var createConnection = function() {
-  connection = mysql.createConnection({
-    host : 'pickups.justinpchen.com',
-    user : 'psbyron3',
-    password : 'cocacola1',
-    database : "m2p_pickups_db",
-    charset : 'utf8'
-  });
+  connection = mysql.createConnection(db_config);
   
   // connection.connect(function (err) {
   //   if (err) {
