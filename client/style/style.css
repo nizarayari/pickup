@@ -11,6 +11,19 @@
 	cursor: pointer
 }
 
-#addTableID {
+/*#addTableID {
 	width: 40;
+}*/
+
+.fieldError {
+	border-color: red;
+	border-width: 3px;
 }
+
+#errorMessage {
+	display: none;
+}
+
+/*body {
+	background-color: black
+}*/
