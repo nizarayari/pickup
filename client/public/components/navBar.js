@@ -2,15 +2,10 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import path from 'path';
 
-
 class NavBar extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      something: 'hi'
-    }
-  }
+}
 
   componentDidMount() {
     $('#addTableID').hide()
@@ -70,25 +65,7 @@ class NavBar extends Component {
     )
   }
 
-//   render() {
-
-//   const styleHide = {
-//       visibility: 'hidden'
-//   }
-//   let navRender = this.nav()
-//   let addTableRender = this.addTable()
-
-//     return(
-//       <div>
-//           <div>{ navRender }</div>
-//           <div style={styleHide}>{ addTableRender }</div>
-//       </div>
-//     )
-//   }
-// }
-
   render() {
-
   let navRender = this.nav()
   let addTableRender = this.addTable()
 
@@ -100,6 +77,5 @@ class NavBar extends Component {
     )
   }
 }
-
 
 export default NavBar
