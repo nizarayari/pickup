@@ -36,12 +36,20 @@ exports.postGame = function(callback, params) {
         else { callback(data); }
       });
     } 
-    else { callback(data); }
+    else { callback(data); console.log("Game successfully stored in db!") }
   });
 }
 
 exports.deleteGame = function(callback) {
 
+
+}
+
+exports.addGameLocation = function(callback, params) {
+  var check = 'SELECT * FROM Markers WHERE lat = ? and lng = ?';
+  var checkValues = [params.lat, params.lng];
+  var insert = "INSERT INTO Locations (name, address, lat, lng, type, game_id) values (?, ?, ?, ?, ?, ?);";
+  
 
 }
 
