@@ -29011,7 +29011,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'li',
-	            { id: 'addButton' },
+	            null,
 	            _react2.default.createElement(
 	              _reactRouter.Link,
 	              { to: '/Add' },
@@ -40860,7 +40860,9 @@
 	      sport: '',
 	      rules: '',
 	      time: '',
+	      location: '',
 	      players: '',
+	      original_players: '',
 	      needed_players: '',
 	      created_by: ''
 	    };
@@ -40872,10 +40874,15 @@
 	    key: 'onInputChange',
 	    value: function onInputChange(input, event) {
 	      var myObj = {};
-
 	      myObj[input] = event.target.value;
 	      this.setState(myObj);
-	      console.log(this.state);
+	    }
+	  }, {
+	    key: 'onSubmit',
+	    value: function onSubmit() {
+	      if (this.validate.call(this)) {
+	        console.log('route to add game component');
+	      }
 	    }
 	  }, {
 	    key: 'validate',
@@ -40887,7 +40894,8 @@
 	          rules = this.state.rules.toLowerCase(),
 	          time = this.state.time,
 	          needed_players = this.state.needed_players,
-	          created_by = this.state.created_by.toLowerCase();
+	          created_by = this.state.created_by.toLowerCase(),
+	          original_players = this.state.original_players;
 
 	      var listOfSports = ['football', 'baseball', 'basketball', 'tennis'];
 
@@ -40898,23 +40906,30 @@
 	        wasThereAnError++;
 	        (0, _jquery2.default)('#sport').addClass('fieldError');
 	      }
-	      if (new Date(time) <= new Date()) {
+	      if (new Date(time) <= new Date() || time === '') {
 	        console.log('made it in');
 	        wasThereAnError++;
 	        (0, _jquery2.default)('#time').addClass('fieldError');
+	      }
+	      var reOriginal_players = /[^0-9]/;
+	      if (reOriginal_players.test(original_players)) {
+	        wasThereAnError++;
+	        (0, _jquery2.default)('#original_players').addClass('fieldError');
 	      }
 	      if (needed_players <= 0) {
 	        wasThereAnError++;
 	        (0, _jquery2.default)('#needed_players').addClass('fieldError');
 	      }
-	      var re = /[^a-zA-Z0-9\s]/;
-	      if (re.test(created_by) || created_by.length === 0) {
+	      var reCreated_by = /[^a-zA-Z0-9\s]/;
+	      if (reCreated_by.test(created_by) || created_by.length === 0) {
 	        wasThereAnError++;
 	        (0, _jquery2.default)('#created_by').addClass('fieldError');
 	      }
 	      if (wasThereAnError > 0) {
-	        console.log(wasThereAnError);
 	        (0, _jquery2.default)('#errorMessage').show();
+	        return false;
+	      } else {
+	        return true;
 	      }
 	    }
 	  }, {
@@ -40986,6 +41001,24 @@
 	                  _react2.default.createElement(
 	                    'td',
 	                    null,
+	                    _react2.default.createElement('input', _defineProperty({ id: 'location', className: 'resetError', onChange: this.onInputChange.bind(this, 'location'), value: this.state.location, placeholder: 'Location', type: 'text' }, 'className', 'form-control'))
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement('input', _defineProperty({ id: 'original_players', className: 'resetError', onChange: this.onInputChange.bind(this, 'original_players'), value: this.state.original_players, placeholder: 'Current Players', type: 'text' }, 'className', 'form-control'))
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'tr',
+	                  null,
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
 	                    _react2.default.createElement('input', _defineProperty({ id: 'needed_players', className: 'resetError', onChange: this.onInputChange.bind(this, 'needed_players'), value: this.state.needed_players, placeholder: 'Needed Players', type: 'text' }, 'className', 'form-control'))
 	                  )
 	                ),
@@ -41001,7 +41034,7 @@
 	              ),
 	              _react2.default.createElement(
 	                'button',
-	                { onClick: this.validate.bind(this), className: 'btn btn-default', type: 'submit' },
+	                { onClick: this.onSubmit.bind(this), className: 'btn btn-default', type: 'submit' },
 	                'submit'
 	              )
 	            )

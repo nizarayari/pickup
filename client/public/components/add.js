@@ -10,7 +10,9 @@ export default class Search extends Component {
       sport: '',
       rules: '',
       time: '',
+      location: '',
       players: '',
+      original_players: '',
       needed_players: '',
       created_by: ''
     }
@@ -20,10 +22,14 @@ export default class Search extends Component {
   onInputChange(input, event) {
     const myObj = {
     }
-
     myObj[input] = event.target.value
     this.setState(myObj)
-    console.log(this.state)
+  }
+
+  onSubmit() {    
+    if(this.validate.call(this)) {
+      console.log('route to add game component')
+    }
   }
 
   validate() {
@@ -34,7 +40,8 @@ export default class Search extends Component {
         rules = this.state.rules.toLowerCase(),
         time = this.state.time,
         needed_players = this.state.needed_players,
-        created_by = this.state.created_by.toLowerCase();
+        created_by = this.state.created_by.toLowerCase(),
+        original_players = this.state.original_players;
 
     let listOfSports = ['football', 'baseball', 'basketball', 'tennis']
 
@@ -45,23 +52,30 @@ export default class Search extends Component {
       wasThereAnError ++;
       $('#sport').addClass('fieldError')
     }
-    if (new Date(time) <= new Date()) {
+    if (new Date(time) <= new Date() || time === '') {
       console.log('made it in')
       wasThereAnError ++;
       $('#time').addClass('fieldError')
+    }
+    const reOriginal_players = /[^0-9]/;
+    if (reOriginal_players.test(original_players)) {
+      wasThereAnError ++;
+      $('#original_players').addClass('fieldError')
     }
     if (needed_players <= 0) {
       wasThereAnError ++;
       $('#needed_players').addClass('fieldError')
     }
-    const re = /[^a-zA-Z0-9\s]/;
-    if (re.test(created_by) || created_by.length === 0) {
+    const reCreated_by = /[^a-zA-Z0-9\s]/;
+    if (reCreated_by.test(created_by) || created_by.length === 0) {
       wasThereAnError ++;   
       $('#created_by').addClass('fieldError')
     }
     if (wasThereAnError > 0) {
-      console.log(wasThereAnError)
       $('#errorMessage').show()
+      return false;
+    } else {
+      return true;
     }
   }
 
@@ -71,7 +85,6 @@ render() {
       <div className="container">
         <div className="row">
           <div className="col-lg-8">
-
             <table id="addTableID" className="table table-hover">
               <thead>
                 <tr>
@@ -91,14 +104,19 @@ render() {
                     <td><input id="time" className="resetError" onChange={ this.onInputChange.bind(this, 'time') } value={ this.state.time }placeholder='Time' type="datetime-local" className="form-control"/></td>
                   </tr>
                   <tr>
+                    <td><input id="location" className="resetError" onChange={ this.onInputChange.bind(this, 'location') } value={ this.state.location }placeholder='Location' type="text" className="form-control"/></td>
+                  </tr>
+                  <tr>
+                    <td><input id="original_players" className="resetError" onChange={ this.onInputChange.bind(this, 'original_players') } value={ this.state.original_players } placeholder='Current Players' type="text" className="form-control"/></td>
+                  </tr>
+                  <tr>
                     <td><input id="needed_players" className="resetError" onChange={ this.onInputChange.bind(this, 'needed_players') } value={ this.state.needed_players } placeholder='Needed Players' type="text" className="form-control"/></td>
                   </tr>
                   <tr>
                     <td><input id="created_by" className="resetError" onChange={ this.onInputChange.bind(this, 'created_by') } value={ this.state.created_by } placeholder='Created by' type="text" className="form-control"/></td>
                   </tr>
-                </tbody>
-            
-              <button onClick={ this.validate.bind(this) } className="btn btn-default" type="submit">submit</button>
+                </tbody>            
+              <button onClick={ this.onSubmit.bind(this) } className="btn btn-default" type="submit">submit</button>
             </table>
           </div>
         </div> 
