@@ -23,16 +23,16 @@ exports.postGame = function(callback, params) {
   console.log("params in postGame", params);
   var check = 'SELECT * FROM Games WHERE sport = ? AND time = ?';
   var checkValues = [params.sport, params.time];
-  var insert = "INSERT into Games (sport, rules, time, location, currentPlayers, maxPlayers, created_by) values (?, ?, ?, ?, ?, ?, ?);";
-  var insertValues = [params.sport, params.rules, params.time, params.location, params.currentPlayers, params.maxPlayers, params.created_by];
+  var insert = "INSERT into Games (sport, rules, time, location, originalPlayers, joinedPlayers, playersNeeded, created_by) values (?, ?, ?, ?, ?, ?, ?, ?);";
+  var insertValues = [params.sport, params.rules, params.time, params.location, params.originalPlayers, params.joinedPlayers, params.playersNeeded, params.created_by];
 
  connection.query(check, checkValues, function(err, data) {
     if (err) {
-      console.error("error 1 db addGame : ", err);
+      console.error("error 1 gamesHelper addGame : ", err);
     }
     if (data.length === 0) {
      connection.query(insert, insertValues, function(err) {
-        if (err) {console.error('error 2 in db addGame :', err)}
+        if (err) {console.error('error 2 in gamesHelper addGame :', err)}
         else { callback(data); }
       });
     } 

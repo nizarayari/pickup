@@ -10,7 +10,7 @@ import App from './public/components/app'
 import reducer from './public/reducers'
 import NavBar from './public/components/navBar'
 import Search from './public/components/search'
-import Add from './public/components/add'
+import Add from './public/containers/add'
 import GameListHome from './public/containers/gameListHome'
 
 const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);

@@ -1,13 +1,8 @@
-import React, { Component } from 'react'
-import NavBar from './navBar'
-import GamesList from  '../containers/gamesList'
-import { Link } from 'react-router'
+import React, { Component } from 'react';
+import NavBar from './navBar';
+import { Link } from 'react-router';
 
 export default class App extends Component {
-
-// show() {
-
-// }
 
   render() {
     return (

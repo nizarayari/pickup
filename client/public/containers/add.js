@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
-import $ from 'jquery'
-import moment from 'moment'
-import axios from 'axios'
-// import { browserHistory }
+import React, { Component } from 'react';
+import $ from 'jquery';
+import moment from 'moment';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { submitGame } from '../actions/index';
 
-export default class Search extends Component { 
+class Add extends Component { 
   constructor(props) {
     super(props)
 
@@ -28,8 +30,16 @@ export default class Search extends Component {
     this.setState(myObj)
   }
 
-  onSubmit() {    
+  onSubmit() {
+    
+    // let sport = this.state.sport.toLowerCase();
+    // let split = sport.split('');
+    // let capital = split[0].toUpperCase();
+    // split[0] = capital;
+    // let joinedSport = split.join('');
+
     if(this.validate.call(this)) {
+      this.props.submitGame( { sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: this.state.location, originalPlayers: this.state.original_players, joinedPlayers: '[poop dollar]', playersNeeded: this.state.needed_players, created_by: this.state.created_by } )
       this.props.history.push('/GameListHome')
     }
   }
@@ -54,7 +64,6 @@ export default class Search extends Component {
       $('#sport').addClass('fieldError')
     }
     if (new Date(time) <= new Date() || time === '') {
-      console.log('made it in')
       wasThereAnError ++;
       $('#time').addClass('fieldError')
     }
@@ -126,3 +135,10 @@ render() {
     )     
   }
 }
+
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({ submitGame }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Add)
