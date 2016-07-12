@@ -4,15 +4,16 @@ import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
 import { combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import ReduxPromise from 'redux-promise'
+import thunk from 'redux-thunk'
 
 import App from './public/components/app'
 import reducer from './public/reducers'
 import NavBar from './public/components/navBar'
 import Search from './public/components/search'
 import Add from './public/components/add'
+import GameListHome from './public/containers/gameListHome'
 
-const createStoreWithMiddleWare = applyMiddleware(ReduxPromise)(createStore);
+const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
 
  render((
     <Provider store={createStoreWithMiddleWare(reducer)}>
@@ -22,6 +23,7 @@ const createStoreWithMiddleWare = applyMiddleware(ReduxPromise)(createStore);
           <Route path="/Search" component={Search} />
           <Route path="/Add" component={Add} />
         </Route>
+        <Route path="/GameListHome" component={GameListHome} />
       </Router>
     </Provider>
   ), document.getElementById('app'))

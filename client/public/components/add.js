@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
 import moment from 'moment'
+import axios from 'axios'
+// import { browserHistory }
 
 export default class Search extends Component { 
   constructor(props) {
@@ -28,12 +30,11 @@ export default class Search extends Component {
 
   onSubmit() {    
     if(this.validate.call(this)) {
-      console.log('route to add game component')
+      this.props.history.push('/GameListHome')
     }
   }
 
   validate() {
-    console.log('fire again')
     let wasThereAnError = 0
 
     let sport = this.state.sport.toLowerCase(),
@@ -43,7 +44,7 @@ export default class Search extends Component {
         created_by = this.state.created_by.toLowerCase(),
         original_players = this.state.original_players;
 
-    let listOfSports = ['football', 'baseball', 'basketball', 'tennis']
+    let listOfSports = ['football', 'baseball', 'basketball', 'tennis', 'soccer'];
 
     $("input").removeClass("fieldError");
     $("#errorMessage").hide();
@@ -62,7 +63,8 @@ export default class Search extends Component {
       wasThereAnError ++;
       $('#original_players').addClass('fieldError')
     }
-    if (needed_players <= 0) {
+    const reNeeded_players = /[^0-9]/;
+    if (needed_players <= 0 || reNeeded_players.test(needed_players)) {
       wasThereAnError ++;
       $('#needed_players').addClass('fieldError')
     }
