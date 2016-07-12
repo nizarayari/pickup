@@ -20,11 +20,10 @@ var players = require('./routesPlayers');
 var port = process.env.PORT || 3000;
 
 
+app.use(express.static('../client'));
+app.use('*', express.static(__dirname + '/../client'));
 
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/client'))
-
-
 
 app.use('/api', pickups);
 
@@ -44,6 +43,7 @@ app.use(function(req, res, next) {
 // + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
 
 //Boot server -----------------------------------------------------------
+
 
 app.listen(port);
 console.log("username", process.env.db_username)
