@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import GamesReducer from './reducer_games'
 import SubmitGamesReducer from './reducer_submitGame'
+import GetGamesReducer from './reducer_getGames'
 
 const rootReducer = combineReducers({
   games: GamesReducer,

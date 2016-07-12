@@ -4,28 +4,29 @@ import { connect } from 'react-redux'
 class GamesListHome extends Component {
 
   renderList() {
-    return this.props.games.map((game) => {
-      return (
-        <li 
-        key={game.id}>
-        {game.sport}
-        </li>
-      )
-    })
+    // return this.props.games.map((game) => {
+    //   return (
+    //     <li 
+    //     key={game.id}>
+    //     {game.sport}
+    //     </li>
+    //   )
+    // })
   }
 
   render() {
+    console.log(this.props, 'getGames console.log')
       return (
-        <ul>
-          {this.renderList()}
-        </ul>
+        <div>
+          hi
+        </div>
       )
     }
   }
 
 function mapStateToProps(state) {
   return {
-    games: state.games
+    getGames: state.getGames
   }
 }
 

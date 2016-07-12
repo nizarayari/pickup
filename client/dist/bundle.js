@@ -39831,12 +39831,16 @@
 
 	var _reducer_submitGame2 = _interopRequireDefault(_reducer_submitGame);
 
+	var _reducer_getGames = __webpack_require__(402);
+
+	var _reducer_getGames2 = _interopRequireDefault(_reducer_getGames);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var rootReducer = (0, _redux.combineReducers)({
 	  games: _reducer_games2.default,
 	  submitGame: _reducer_submitGame2.default,
-	  getGames: GetGamesReducer
+	  getGames: _reducer_getGames2.default
 	});
 
 	exports.default = rootReducer;
@@ -39910,6 +39914,7 @@
 	      return _axios2.default.get('/api/games');
 	    }).then(function (response) {
 	      _reactRouter.browserHistory.push('/GameListHome');
+	      console.log(response, 'response data');
 	      dispatch({ type: GET_GAMES, payload: response.data });
 	    }).catch(function (response) {
 	      console.log('there was an error in the actions page', response);
@@ -55586,22 +55591,23 @@
 	  _createClass(GamesListHome, [{
 	    key: 'renderList',
 	    value: function renderList() {
-	      return this.props.games.map(function (game) {
-	        return _react2.default.createElement(
-	          'li',
-	          {
-	            key: game.id },
-	          game.sport
-	        );
-	      });
+	      // return this.props.games.map((game) => {
+	      //   return (
+	      //     <li
+	      //     key={game.id}>
+	      //     {game.sport}
+	      //     </li>
+	      //   )
+	      // })
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      console.log(this.props, 'getGames console.log');
 	      return _react2.default.createElement(
-	        'ul',
+	        'div',
 	        null,
-	        this.renderList()
+	        'hi'
 	      );
 	    }
 	  }]);
@@ -55611,11 +55617,45 @@
 
 	function mapStateToProps(state) {
 	  return {
-	    games: state.games
+	    getGames: state.getGames
 	  };
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(GamesListHome);
+
+/***/ },
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case _index.GET_GAMES:
+	      return [action.payload.data].concat(_toConsumableArray(state));
+	  }
+	  return state;
+	};
+
+	var _index = __webpack_require__(266);
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 /***/ }
 /******/ ]);

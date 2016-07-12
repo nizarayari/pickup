@@ -13,6 +13,7 @@ export function submitGame(gameObj) {
       })
       .then(function(response) {
         browserHistory.push('/GameListHome')
+        console.log(response, 'response data')
         dispatch({ type: GET_GAMES, payload: response.data })
       })
       .catch(function(response) {

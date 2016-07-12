@@ -20,12 +20,14 @@ var players = require('./routesPlayers');
 var port = process.env.PORT || 3000;
 
 
+app.use('/api', pickups);
+
 app.use(express.static('../client'));
 app.use('*', express.static(__dirname + '/../client'));
 
 app.use(bodyParser.json());
 
-app.use('/api', pickups);
+
 
 
 
