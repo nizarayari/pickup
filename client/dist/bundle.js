@@ -39865,15 +39865,14 @@
 	  }
 
 	  _createClass(Home, [{
+	    key: 'onMapCreated',
+	    value: function onMapCreated(map) {
+	      map.setOptions({
+	        disableDefaultUI: true
+	      });
+	    }
+	  }, {
 	    key: 'onDragEnd',
-
-
-	    // onMapCreated(map) {
-	    //   map.setOptions({
-	    //     disableDefaultUI: true
-	    //   });
-	    // };
-
 	    value: function onDragEnd(e) {
 	      console.log('onDragEnd', e);
 	    }
@@ -39897,32 +39896,35 @@
 	      };
 
 	      return _react2.default.createElement(
-	        _reactGmaps.Gmaps,
-	        {
-	          width: '1200px',
-	          height: '1000px',
-	          left: '362px',
-	          lat: coords.lat,
-	          lng: coords.lng,
-	          zoom: 12,
-	          loadingMessage: 'Be happy',
-	          params: { v: '3.exp', key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8' },
-	          onMapCreated: this.onMapCreated },
-	        _react2.default.createElement(_reactGmaps.Marker, {
-	          lat: coords.lat,
-	          lng: coords.lng,
-	          draggable: true,
-	          onDragEnd: this.onDragEnd }),
-	        _react2.default.createElement(_reactGmaps.InfoWindow, {
-	          lat: coords.lat,
-	          lng: coords.lng,
-	          content: 'Hello, React :)',
-	          onCloseClick: this.onCloseClick }),
-	        _react2.default.createElement(_reactGmaps.Circle, {
-	          lat: coords.lat,
-	          lng: coords.lng,
-	          radius: 500,
-	          onClick: this.onClick })
+	        'div',
+	        { id: 'map' },
+	        _react2.default.createElement(
+	          _reactGmaps.Gmaps,
+	          {
+	            width: ['1200px'],
+	            height: '1000px',
+	            lat: coords.lat,
+	            lng: coords.lng,
+	            zoom: 12,
+	            loadingMessage: 'Be happy',
+	            params: { v: '3.exp', key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8' },
+	            onMapCreated: this.onMapCreated },
+	          _react2.default.createElement(_reactGmaps.Marker, {
+	            lat: coords.lat,
+	            lng: coords.lng,
+	            draggable: true,
+	            onDragEnd: this.onDragEnd }),
+	          _react2.default.createElement(_reactGmaps.InfoWindow, {
+	            lat: coords.lat,
+	            lng: coords.lng,
+	            content: 'Hello, React :)',
+	            onCloseClick: this.onCloseClick }),
+	          _react2.default.createElement(_reactGmaps.Circle, {
+	            lat: coords.lat,
+	            lng: coords.lng,
+	            radius: 500,
+	            onClick: this.onClick })
+	        )
 	      );
 	    }
 	  }]);
@@ -40032,14 +40034,13 @@
 	function submitGame(gameObj) {
 	  return function (dispatch) {
 	    _axios2.default.post('api/games', gameObj).then(function (response) {
-	      // browserHistory.push('/GameListHome')
 	      return _axios2.default.get('/api/games');
 	    }).then(function (response) {
 	      console.log(response, 'response data');
 	      _reactRouter.browserHistory.push('/GameListHome');
 	      dispatch({ type: GET_GAMES, payload: response.data });
-	    }).catch(function (response) {
-	      console.log('there was an error in the actions page', response);
+	    }).catch(function (error) {
+	      console.log('there was an error in the actions page', error);
 	    });
 	  };
 	}
@@ -41461,6 +41462,11 @@
 	  }
 
 	  _createClass(Add, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      (0, _jquery2.default)("#errorMessage").hide();
+	    }
+	  }, {
 	    key: 'onInputChange',
 	    value: function onInputChange(input, event) {
 	      var myObj = {};
@@ -55738,19 +55744,66 @@
 	    value: function renderList() {
 	      return this.props.getGames.map(function (game) {
 	        return _react2.default.createElement(
-	          'li',
-	          {
-	            key: game.id },
-	          game.sport
+	          'div',
+	          { className: 'card card-panel hoverable', key: game.id },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'card-title' },
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'Game: ',
+	              game.sport
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            { 'class': 'left-align' },
+	            'Players Needed: ',
+	            game.needed_players
+	          ),
+	          _react2.default.createElement(
+	            'h4',
+	            { className: 'center-align' },
+	            'Time: ',
+	            game.time
+	          ),
+	          _react2.default.createElement(
+	            'h4',
+	            { className: 'center-align' },
+	            'Location: ',
+	            game.location
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            { className: 'card-text' },
+	            'Rules: ',
+	            game.rules
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'card-action' },
+	            _react2.default.createElement(
+	              'a',
+	              { href: '#' },
+	              'Join game'
+	            ),
+	            ' ',
+	            _react2.default.createElement(
+	              'p',
+	              { 'class': 'left-align' },
+	              'Host: ',
+	              game.created_by
+	            )
+	          )
 	        );
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.props.getGames, 'getGames console.log');
 	      return _react2.default.createElement(
-	        'ul',
+	        'div',
 	        null,
 	        this.renderList()
 	      );

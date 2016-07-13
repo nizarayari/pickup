@@ -9,7 +9,6 @@ export function submitGame(gameObj) {
     axios.post('api/games', gameObj)
 
       .then(function(response) {
-        // browserHistory.push('/GameListHome')
         return axios.get('/api/games')
       })
       .then(function(response) {
@@ -17,8 +16,8 @@ export function submitGame(gameObj) {
         browserHistory.push('/GameListHome')
         dispatch({ type: GET_GAMES, payload: response.data })
       })
-      .catch(function(response) {
-        console.log('there was an error in the actions page', response)
+      .catch(function(error) {
+        console.log('there was an error in the actions page', error)
       })
   }    
 }

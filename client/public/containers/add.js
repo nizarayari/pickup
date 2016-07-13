@@ -23,6 +23,10 @@ class Add extends Component {
 
   }
 
+  componentDidMount() {
+    $("#errorMessage").hide();
+  }
+
   onInputChange(input, event) {
     const myObj = {
     }
