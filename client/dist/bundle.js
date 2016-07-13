@@ -55758,9 +55758,9 @@
 	          ),
 	          _react2.default.createElement(
 	            'h3',
-	            { 'class': 'left-align' },
+	            { className: 'left-align' },
 	            'Players Needed: ',
-	            game.needed_players
+	            game.playersNeeded
 	          ),
 	          _react2.default.createElement(
 	            'h4',
@@ -55791,7 +55791,7 @@
 	            ' ',
 	            _react2.default.createElement(
 	              'p',
-	              { 'class': 'left-align' },
+	              { className: 'left-align' },
 	              'Host: ',
 	              game.created_by
 	            )
@@ -55802,10 +55802,15 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      console.log(this.props.getGames, 'getGames inside of GamesListHome');
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        this.renderList()
+	        { className: 'valign-wrapper' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'valign center-block' },
+	          this.renderList()
+	        )
 	      );
 	    }
 	  }]);
