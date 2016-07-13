@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 class GamesListHome extends Component {
 
   renderList() {
-    return this.props.games.map((game) => {
+    return this.props.getGames.map((game) => {
       return (
         <li 
         key={game.id}>
@@ -15,6 +15,7 @@ class GamesListHome extends Component {
   }
 
   render() {
+    console.log(this.props.getGames, 'getGames console.log')
       return (
         <ul>
           {this.renderList()}
@@ -25,7 +26,7 @@ class GamesListHome extends Component {
 
 function mapStateToProps(state) {
   return {
-    games: state.games
+    getGames: state.getGames
   }
 }
 

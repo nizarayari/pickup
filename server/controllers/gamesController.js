@@ -13,6 +13,7 @@ module.exports = {
       })
     },
     post : function(req, res) {
+      console.log('+++line 16: ', req.body)
       models.games.post(function(data, msg) {
         if (data) {
           res.send(data);
