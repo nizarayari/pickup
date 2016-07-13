@@ -12,6 +12,7 @@ import NavBar from './public/components/navBar'
 import Search from './public/components/search'
 import Add from './public/containers/add'
 import GameListHome from './public/containers/gameListHome'
+import Home from './public/components/home'
 
 const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
 
@@ -23,6 +24,7 @@ const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
           <Route path="/Search" component={Search} />
           <Route path="/Add" component={Add} />
         </Route>
+          <Route path="/Home" component={Home} />
         <Route path="/GameListHome" component={GameListHome} />
       </Router>
     </Provider>
