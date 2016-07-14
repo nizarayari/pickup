@@ -1,10 +1,11 @@
+// Modules
 var models = require('../models/gamesModel.js');
 var url = require('url');
 
 module.exports = {
-  games : {
+  locations : {
     get : function(req, res) {
-      models.games.get(function(data, msg) {
+      models.locations.get(function(data, msg) {
         if (data) {
           res.send(data);
         } else {
@@ -13,22 +14,21 @@ module.exports = {
       })
     },
     post : function(req, res) {
-      console.log('+++line 16: ', req.body)
-      models.games.post(function(data, msg) {
+      models.locations.post(function(data, msg) {
         if (data) {
-          res.status(201).json({success: true});
+          res.send(data);
         } else {
           res.status(404).send(msg); 
         }
       }, req.body)
     },
     put : function(req, res) {
-      models.games.put(function(data) {
+      models.locations.put(function(data) {
 
       })
     },
     delete : function(req, res) {
-      models.games.delete(function(data, msg) {
+      models.locations.delete(function(data, msg) {
       })
     }
   }

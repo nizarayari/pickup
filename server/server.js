@@ -7,7 +7,8 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var request = require('request');
 var pickups = require('./routesPickups.js');
-var players = require('./routesPlayers');
+var players = require('./routesPlayers.js');
+var locations = require('./routesLocations.js');
 //var dotenv = require('dotenv');
 
 
@@ -21,10 +22,12 @@ var port = process.env.PORT || 3000;
 
 
 app.use(bodyParser.json());
-app.use('/api', pickups);
+
 app.use(express.static('../client'));
 app.use('*', express.static(__dirname + '/../client'));
 
+app.use('/api', pickups);
+app.use('/api', locations);
 
 
 
@@ -46,6 +49,5 @@ app.use(function(req, res, next) {
 
 
 app.listen(port);
-console.log("username", process.env.db_username)
 console.log('Server tuning into Port ' + port);
 
