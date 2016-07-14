@@ -1,0 +1,23 @@
+#a {
+	float: left;
+	width: 50%;
+	background-color: blue;
+	height: 100%;
+	overflow: scroll;
+}
+
+#b {
+	float: left;
+	width: 50%;
+	background-color: red;
+	height: 100%;
+	overflow: scroll;
+}
+
+html, body {
+    height: 100%;
+}
+
+h1 {
+	font-size: 100px
+}

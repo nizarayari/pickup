@@ -9,10 +9,10 @@ import thunk from 'redux-thunk'
 import App from './public/components/app'
 import reducer from './public/reducers'
 import NavBar from './public/components/navBar'
-import Search from './public/components/search'
+import Search from './public/containers/search'
 import Add from './public/containers/add'
 import GameListHome from './public/containers/gameListHome'
-import Home from './public/components/home'
+import SearchHome from './public/containers/searchHome'
 
 const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
 
@@ -24,7 +24,7 @@ const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
           <Route path="/Search" component={Search} />
           <Route path="/Add" component={Add} />
         </Route>
-          <Route path="/Home" component={Home} />
+          <Route path="/SearchHome" component={SearchHome} />
         <Route path="/GameListHome" component={GameListHome} />
       </Router>
     </Provider>

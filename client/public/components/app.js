@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NavBar from './navBar';
 import { Link } from 'react-router';
-import Home from './home';
+import SearchHome from '../containers/searchHome';
 
 export default class App extends Component {
 
@@ -12,7 +12,7 @@ export default class App extends Component {
         <ul>
           <li><Link to="/Search">Search</Link></li>
           <li><Link to="/Add">Add</Link></li>
-          <li><Link to="/Home">Home</Link></li>
+          <li><Link to="/SearchHome">Home</Link></li>
         </ul>
         {this.props.children}
       </div>
