@@ -55015,6 +55015,10 @@
 
 	var _reactRedux = __webpack_require__(248);
 
+	var _jquery = __webpack_require__(258);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55026,10 +55030,16 @@
 	var SearchHome = function (_Component) {
 	  _inherits(SearchHome, _Component);
 
-	  function SearchHome() {
+	  function SearchHome(props) {
 	    _classCallCheck(this, SearchHome);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SearchHome).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SearchHome).call(this, props));
+
+	    _this.state = {
+	      newPlayerName: ''
+	    };
+
+	    return _this;
 	  }
 
 	  _createClass(SearchHome, [{
@@ -55055,11 +55065,32 @@
 	      console.log('onClick', e);
 	    }
 	  }, {
-	    key: 'joinGame',
-	    value: function joinGame() {}
+	    key: 'playerEntryInputChange',
+
+
+	    // joinGame() {
+
+	    // };
+
+	    value: function playerEntryInputChange(event) {
+	      this.setState({
+	        newPlayerName: event.target.value
+	      });
+	    }
 	  }, {
-	    key: 'something',
-	    value: function something() {
+	    key: 'showNameEntry',
+	    value: function showNameEntry(event) {
+	      console.log(event.target);
+	      this.setState({
+	        newPlayerName: ''
+	      });
+
+	      (0, _jquery2.default)('.newPlayerEntry').hide();
+	      (0, _jquery2.default)(event.target).siblings('.newPlayerEntry').show();
+	    }
+	  }, {
+	    key: 'searchedGameCards',
+	    value: function searchedGameCards() {
 	      var _this2 = this;
 
 	      return this.props.games.map(function (game) {
@@ -55105,7 +55136,7 @@
 	                { className: 'card-action' },
 	                _react2.default.createElement(
 	                  'button',
-	                  { className: 'btn red waves-effect waves-light', onClick: _this2.joinGame.bind(_this2), type: 'submit', name: 'action' },
+	                  { className: 'btn red waves-effect waves-light', onClick: _this2.showNameEntry.bind(_this2), type: 'submit', name: 'action' },
 	                  ' ',
 	                  _react2.default.createElement(
 	                    'i',
@@ -55113,6 +55144,11 @@
 	                    'send'
 	                  ),
 	                  'Join'
+	                ),
+	                _react2.default.createElement(
+	                  'form',
+	                  { className: 'newPlayerEntry' },
+	                  _react2.default.createElement('input', { onChange: _this2.playerEntryInputChange.bind(_this2), value: _this2.state.newPlayerName, type: 'text', placeholder: 'Enter Your Name' })
 	                ),
 	                _react2.default.createElement(
 	                  'p',
@@ -55146,7 +55182,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'gamesView' },
-	          this.something()
+	          this.searchedGameCards()
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -55191,6 +55227,10 @@
 	    games: state.games
 	  };
 	}
+
+	// function mapDispatchToProps(dispatch){
+	//   return bindActionCreators({ searchGames }, dispatch);
+	// }
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(SearchHome);
 

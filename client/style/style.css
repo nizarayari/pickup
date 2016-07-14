@@ -24,6 +24,10 @@
 	display: none;
 }
 
+.newPlayerEntry {
+	display: none;
+}
+
 html, body {
     height: 100%;
 }

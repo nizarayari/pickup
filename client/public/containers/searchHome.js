@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import $ from 'jquery';
 
 class SearchHome extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      newPlayerName: ''
+    }
+
+  }
 
   onMapCreated(map) {
     map.setOptions({
@@ -24,11 +32,27 @@ class SearchHome extends Component {
     console.log('onClick', e);
   };
 
-  joinGame() {
+  // joinGame() {
 
-  }
+  // };
 
-  something() {
+  playerEntryInputChange(event) {
+    this.setState({
+      newPlayerName: event.target.value
+    })
+  };
+
+  showNameEntry(event) {
+    console.log(event.target)
+    this.setState({
+      newPlayerName: ''
+    })
+    
+    $('.newPlayerEntry').hide()
+    $(event.target).siblings('.newPlayerEntry').show()
+  };
+
+  searchedGameCards() {
     return this.props.games.map((game) => {
       return(
         <div className="valign-wrapper">
@@ -42,14 +66,16 @@ class SearchHome extends Component {
                     <h4 className="center-align">Time: {game.time}</h4>
                     <p className="card-text">Rules: {game.rules}</p>
                   <div className="card-action">
-                      <button className="btn red waves-effect waves-light" onClick={this.joinGame.bind(this)} type="submit" name="action"> <i className="material-icons right">send</i>Join
+                    <button className="btn red waves-effect waves-light" onClick={this.showNameEntry.bind(this)} type="submit" name="action"> <i className="material-icons right">send</i>Join
                       </button>
+                      <form className="newPlayerEntry">
+                        <input onChange={this.playerEntryInputChange.bind(this)} value={this.state.newPlayerName} type='text' placeholder='Enter Your Name'></input>
+                      </form>
                     <p className="left-align">Host: {game.created_by}</p>
                   </div>
                 </div>
 
-          </div>
-                      
+          </div>                    
         </div>
       )
     })
@@ -72,7 +98,7 @@ class SearchHome extends Component {
       <div>
 
       <div id="gamesView">
-        {this.something()}
+        {this.searchedGameCards()}
       </div>
     
         <div id='map'>
@@ -112,6 +138,10 @@ function mapStateToProps(state) {
     games: state.games
   }
 }
+
+// function mapDispatchToProps(dispatch){
+//   return bindActionCreators({ searchGames }, dispatch);
+// }
 
 export default connect(mapStateToProps)(SearchHome)
 
