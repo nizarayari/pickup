@@ -39107,7 +39107,7 @@
 
 /***/ },
 /* 281 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
@@ -39116,7 +39116,31 @@
 	});
 
 	exports.default = function () {
-	  return [{ id: 1, sport: "fooseball", rules: "dont suck", time: 1300, location: [{ lat: '33.784284', long: '-118.242931' }], current_players: 1, playersNeeded: 2, created_by: "mike" }, { id: 2, sport: "baseball", rules: "hit the ball", time: 200, location: [{ lat: '33.879822', long: '-118.296490' }], current_players: 1, playersNeeded: 3, created_by: "merik" }, { id: 3, sport: "basketball", rules: "shoot 3's", time: 700, location: [{ lat: '33.978243', long: '-118.032646' }], current_players: 1, playersNeeded: 4, created_by: "phil" }];
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case _index.SUBMIT_PLAYER:
+	      return apple(arr, action.payload);
+	  }
+	  return arr;
+	};
+
+	var _index = __webpack_require__(283);
+
+	var arr = [{ id: 1, sport: "fooseball", rules: "dont suck", time: 1300, location: [{ lat: '33.784284', long: '-118.242931' }], current_players: 1, playersNeeded: 2, created_by: "mike" }, { id: 2, sport: "baseball", rules: "hit the ball", time: 200, location: [{ lat: '33.879822', long: '-118.296490' }], current_players: 1, playersNeeded: 3, created_by: "merik" }, { id: 3, sport: "basketball", rules: "shoot 3's", time: 700, location: [{ lat: '33.978243', long: '-118.032646' }], current_players: 1, playersNeeded: 4, created_by: "phil" }];
+
+	var apple = function apple(arr, obj) {
+
+	  var modArr = arr.map(function (game) {
+	    if (game.id === obj.id) {
+	      return obj;
+	      console.log('inside the reducer if statement', game);
+	    }
+	    return game;
+	  });
+	  console.log(modArr);
+	  return modArr;
 	};
 
 /***/ },
@@ -39129,9 +39153,10 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.SEARCH_GAMES = exports.GET_GAMES = exports.SUBMIT_GAME = undefined;
+	exports.SUBMIT_PLAYER = exports.SEARCH_GAMES = exports.GET_GAMES = exports.SUBMIT_GAME = undefined;
 	exports.searchGames = searchGames;
 	exports.submitGame = submitGame;
+	exports.submitPlayer = submitPlayer;
 
 	var _axios = __webpack_require__(284);
 
@@ -39144,6 +39169,7 @@
 	var SUBMIT_GAME = exports.SUBMIT_GAME = 'SUBMIT-GAME';
 	var GET_GAMES = exports.GET_GAMES = 'GET-GAMES';
 	var SEARCH_GAMES = exports.SEARCH_GAMES = 'SEARCH-GAMES';
+	var SUBMIT_PLAYER = exports.SUBMIT_PLAYER = 'SUBMIT-PLAYER';
 
 	function searchGames(searchObj) {
 	  return function (dispatch) {
@@ -39167,9 +39193,27 @@
 	      _reactRouter.browserHistory.push('/GameListHome');
 	      dispatch({ type: GET_GAMES, payload: response.data });
 	    }).catch(function (error) {
-	      console.log('there was an error in the actions page', error);
+	      console.log(error, 'there was an error in the submit game action');
 	    });
 	  };
+	}
+
+	function submitPlayer(playerObj) {
+	  var fun = { id: 1, sport: "grape", rules: "7 suck", time: 700, location: [{ lat: '48.784284', long: '-9.242931' }], current_players: 9, playersNeeded: 8, created_by: "merik" };
+	  return function (dispatch) {
+	    console.log('im inside dispatch');
+	    dispatch({ type: SUBMIT_PLAYER, payload: fun });
+	  };
+
+	  // return function(dispatch) {
+	  //   axios.post('/something', playerObj)
+	  //     .then(function(response) {
+	  //       dispatch({ type: SUBMIT_PLAYER, payload: response.data})
+	  //     })
+	  //     .catch(function(error) {
+	  //       console.log(error, 'there was an error in the submit player action')
+	  //     })
+	  // }
 	}
 
 /***/ },
@@ -55019,6 +55063,8 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _index = __webpack_require__(283);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -55089,6 +55135,13 @@
 	      (0, _jquery2.default)(event.target).siblings('.newPlayerEntry').show();
 	    }
 	  }, {
+	    key: 'submitNewPlayerEntry',
+	    value: function submitNewPlayerEntry(event) {
+	      event.preventDefault();
+	      console.log((0, _jquery2.default)(event.target).parents('.card-panel').attr('key'));
+	      this.props.submitPlayer();
+	    }
+	  }, {
 	    key: 'searchedGameCards',
 	    value: function searchedGameCards() {
 	      var _this2 = this;
@@ -55096,13 +55149,13 @@
 	      return this.props.games.map(function (game) {
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'valign-wrapper' },
+	          { className: 'valign-wrapper', 'data-id': game.id },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'valign center-block' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'card card-panel hoverable', key: game.id },
+	              { className: 'card card-panel hoverable' },
 	              _react2.default.createElement(
 	                'div',
 	                { className: 'card-title' },
@@ -55147,7 +55200,7 @@
 	                ),
 	                _react2.default.createElement(
 	                  'form',
-	                  { className: 'newPlayerEntry' },
+	                  { className: 'newPlayerEntry', onSubmit: _this2.submitNewPlayerEntry.bind(_this2) },
 	                  _react2.default.createElement('input', { onChange: _this2.playerEntryInputChange.bind(_this2), value: _this2.state.newPlayerName, type: 'text', placeholder: 'Enter Your Name' })
 	                ),
 	                _react2.default.createElement(
@@ -55228,11 +55281,11 @@
 	  };
 	}
 
-	// function mapDispatchToProps(dispatch){
-	//   return bindActionCreators({ searchGames }, dispatch);
-	// }
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({ submitPlayer: _index.submitPlayer }, dispatch);
+	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(SearchHome);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SearchHome);
 
 	//          <InfoWindow
 	//            lat={coords.lat}

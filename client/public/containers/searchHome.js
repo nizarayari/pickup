@@ -3,6 +3,7 @@ import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import $ from 'jquery';
+import { submitPlayer } from '../actions/index';
 
 class SearchHome extends Component {
   constructor(props) {
@@ -47,18 +48,24 @@ class SearchHome extends Component {
     this.setState({
       newPlayerName: ''
     })
-    
+
     $('.newPlayerEntry').hide()
     $(event.target).siblings('.newPlayerEntry').show()
   };
 
+  submitNewPlayerEntry(event) {
+    event.preventDefault()
+    console.log($(event.target).parents('.card-panel').attr('key'))
+    this.props.submitPlayer()
+  }
+
   searchedGameCards() {
     return this.props.games.map((game) => {
       return(
-        <div className="valign-wrapper">
+        <div className="valign-wrapper" data-id={game.id}>
           <div className="valign center-block">
 
-                <div className="card card-panel hoverable" key={game.id}>
+                <div className="card card-panel hoverable">
                   <div className="card-title">
                     <h3>Game: {game.sport}</h3>
                   </div>
@@ -68,7 +75,7 @@ class SearchHome extends Component {
                   <div className="card-action">
                     <button className="btn red waves-effect waves-light" onClick={this.showNameEntry.bind(this)} type="submit" name="action"> <i className="material-icons right">send</i>Join
                       </button>
-                      <form className="newPlayerEntry">
+                      <form className="newPlayerEntry" onSubmit={this.submitNewPlayerEntry.bind(this)}>
                         <input onChange={this.playerEntryInputChange.bind(this)} value={this.state.newPlayerName} type='text' placeholder='Enter Your Name'></input>
                       </form>
                     <p className="left-align">Host: {game.created_by}</p>
@@ -139,11 +146,11 @@ function mapStateToProps(state) {
   }
 }
 
-// function mapDispatchToProps(dispatch){
-//   return bindActionCreators({ searchGames }, dispatch);
-// }
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({ submitPlayer }, dispatch);
+}
 
-export default connect(mapStateToProps)(SearchHome)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchHome)
 
 
 
