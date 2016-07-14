@@ -16,7 +16,7 @@ module.exports = {
       console.log('+++line 16: ', req.body)
       models.games.post(function(data, msg) {
         if (data) {
-          res.send(data);
+          res.status(201).json({success: true});
         } else {
           res.status(404).send(msg); 
         }
