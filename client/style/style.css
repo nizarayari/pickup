@@ -1,0 +1,54 @@
+/*.img-responsive {
+	max-width: 10%;  
+	max-height: auto;  
+}*/
+
+/*#addTableID {*/
+	/*visibility: hidden;*/
+/*}*/
+
+#x {
+	cursor: pointer
+}
+
+/*#addTableID {
+	width: 40;
+}*/
+
+.fieldError {
+	border-color: red;
+	border-width: 3px;
+}
+
+#errorMessage {
+	display: none;
+}
+
+.newPlayerEntry {
+	display: none;
+}
+
+html, body {
+    height: 100%;
+}
+
+#gamesView {
+	/*display: inline-block;*/
+	float: right;
+	width: 33%;
+	background-color: red;
+	height: 100%;
+	overflow: scroll;
+}
+
+#map {
+	float: left;
+	/*display: inline-block;*/
+	/*bottom: 0px;*/
+	height: 100%;
+	width: 67%;
+	overflow: scroll;
+	/*left: 500px;*/
+	position: fixed;
+	/*right: 0px;*/
+}
