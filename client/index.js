@@ -19,13 +19,18 @@ const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
  render((
     <Provider store={createStoreWithMiddleWare(reducer)}>
       <Router history={browserHistory}>
-        <Route path="/" component={App}>
+        
+        <Route path="/" component={App} >
           <IndexRoute component={Search} />
           <Route path="/Search" component={Search} />
           <Route path="/Add" component={Add} />
         </Route>
-          <Route path="/SearchHome" component={SearchHome} />
-        <Route path="/GameListHome" component={GameListHome} />
+        
+        <Route path="/NavBar" component={NavBar} >
+            <Route path="/SearchHome" component={SearchHome} />
+            <Route path="/GameListHome" component={GameListHome} />
+        </Route>
+
       </Router>
     </Provider>
   ), document.getElementById('app'))
