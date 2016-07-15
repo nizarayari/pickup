@@ -9,7 +9,7 @@ var Q = require('q')
 // from and includes its location info.
 exports.getGame = function(callback, params) {
 
-  var check = 'SELECT * FROM Locations AS l JOIN Games AS g ON l.id = g.locations_id';
+  var check = 'SELECT * FROM Locations AS l JOIN Games AS g ON l.id = g.locations_id JOIN Players AS p ON g.id = p.games_id';
   
   //var checkValues = [params.sport, params.rules, params.time, params.location, params.currentPlayers, params.maxPlayers, params.created_by];
 
@@ -45,27 +45,36 @@ exports.postGame = function(callback, params) {
   console.log("params in postGame", params);
   var check = 'SELECT * FROM Games WHERE sport = ? AND time = ?';
   var checkValues = [params.sport, params.time];
-  var insertGames = "INSERT INTO Games (sport, rules, time, location, originalPlayers, joinedPlayers, playersNeeded, created_by, locations_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+  var insertGames = "INSERT INTO Games (sport, rules, time, location, originalPlayers, created_by, locations_id) values (?, ?, ?, ?, ?, ?, ?);";
   var insertLocations = "INSERT INTO Locations (name, address, lat, lng) values (?, ?, ?, ?);";
   var insertLocationsValues = [params.name, params.address, params.lat, params.lng];
+  var insertPlayers = "INSERT INTO Players (joinedPlayers, playersNeeded, games_id) values (?, ?, ?);";
+  
 
  db.query(check, checkValues, function(err, data) {
     if (err) {
       console.error("game already in db, gamesHelper addGame : ", err).json({success: false});
     }
     if (data.length === 0) {
-     db.query(insertLocations, insertLocationsValues,  function(err, data) {
+     db.query(insertLocations, insertLocationsValues,  function(err, locationData) {
       console.log("this is the data after game insert :", data);
         if (err) {console.error('error inserting into db, gamesHelper postGame :', err)}
         else {
-          var insertGamesValues = [params.sport, params.rules, params.time, params.location, params.originalPlayers, params.joinedPlayers, params.playersNeeded, params.created_by, data.insertId];
-          db.query(insertGames, insertGamesValues, function(err) {
+          var insertGamesValues = [params.sport, params.rules, params.time, params.location, params.originalPlayers, params.created_by, locationData.insertId];
+          db.query(insertGames, insertGamesValues, function(err, gameData) {
             if (err) { 
               console.error('error inserting location into db, gamesHelper postLocation')
              } 
              else {
-              callback(data);
-              console.log("game and location successfully stored in db");
+              var insertPlayersValues = [params.joinedPlayers, params.playersNeeded, gameData.insertId ];
+              db.query(insertPlayers, insertPlayersValues, function(err, data) {
+                if (err) {
+                  console.error("error inserting players to db, Helpers postGame", err);
+                } else {
+                  callback(data);
+                  console.log("Games, locations, and players stored successfully");
+                }
+              })
              } 
           }) 
         }
@@ -73,6 +82,19 @@ exports.postGame = function(callback, params) {
     } 
     //else { callback(data); console.log("Game successfully stored in db!") }
   });
+}
+
+exports.addPlayers = function(callback, params) {
+  var insertJoinedPlayers = "UPDATE Players SET playersJoined = params.playersJoined";
+  var insertPlayersNeeded = "UPDATE Player SET playersNeeded = params.playersNeeded";
+
+  db.query(insertJoinedPlayers, insertPlayersNeeded, function(err, data) {
+    if (err) {
+      console.error("error updating players, helpers addPlayers ", err);
+    } else {
+      callback(data);
+    }
+  })
 }
 
 exports.deleteGame = function(callback) {
