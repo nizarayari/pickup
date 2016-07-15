@@ -12,7 +12,8 @@ module.exports = {
       console.log("in model.post", params)
       gamesHelper.postGame(callback, params)
     },
-    put : function(callback) { 
+    put : function(callback, params) {
+      gamesHelper.addPlayers(callback, params); 
     },
     delete : function(callback) {
       gamesHelper.deleteGame(callback);
