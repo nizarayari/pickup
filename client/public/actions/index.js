@@ -6,17 +6,44 @@ export const GET_GAMES = 'GET-GAMES';
 export const SEARCH_GAMES = 'SEARCH-GAMES'; 
 export const SUBMIT_PLAYER = 'SUBMIT-PLAYER'; 
 export const POSSIBLE_LOCATIONS = 'POSSIBLE-LOCATIONS'; 
+export const DETERMINED_LOCATION = 'DETERMINED-LOCATION'; 
 
 export function searchGames(searchObj) {
   return function(dispatch) {
-    axios({
-      method: 'GET',
-      url: 'api/games',
-      params: searchObj,
+  axios({
+    method: 'GET',
+    url: 'https://maps.googleapis.com/maps/api/geocode/json',
+    params: {address: searchObj.location, key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8'}
+  })
+    .then(function(response) {
+      console.log('outside if statement', response.data)
+      if(response.data.results.length > 1) {
+        console.log('inside if statement')
+        dispatch({ type: POSSIBLE_LOCATIONS, payload: response.data.results })
+        throw new Error('error on search in actions')
+      } else {
+
+          searchObj.lat = response.data.results[0].geometry.location.lat
+          searchObj.lng = response.data.results[0].geometry.location.lng
+          searchObj.address = response.data.results[0].formatted_address
+          searchObj.name = response.data.results[0].formatted_address
+
+          let determinedLocation = {address: response.data.results[0].formatted_address, lat: response.data.results[0].geometry.location.lat, lng: response.data.results[0].geometry.location.lng}
+          dispatch({ type: DETERMINED_LOCATION, payload: determinedLocation })
+          return axios.get('/api/games', searchObj)
+      }
     })
+    // axios({
+    //   method: 'GET',
+    //   url: 'api/games',
+    //   params: searchObj,
+    // })
       .then(function(response) {
         browserHistory.push('/searchHome')
         dispatch({ type: SEARCH_GAMES, payload: response.data })
+      })
+      .catch(function(error) {
+        console.log('errer in the search games axios calls')
       })
   }
 }

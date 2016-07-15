@@ -114,8 +114,12 @@
 	      _react2.default.createElement(_reactRouter.Route, { path: '/Search', component: _search2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/Add', component: _add2.default })
 	    ),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/SearchHome', component: _searchHome2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/GameListHome', component: _gameListHome2.default })
+	    _react2.default.createElement(
+	      _reactRouter.Route,
+	      { path: '/NavBar', component: _navBar2.default },
+	      _react2.default.createElement(_reactRouter.Route, { path: '/SearchHome', component: _searchHome2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/GameListHome', component: _gameListHome2.default })
+	    )
 	  )
 	), document.getElementById('app'));
 
@@ -28226,33 +28230,37 @@
 	          'Anything like hello world, i dont care, please god change'
 	        ),
 	        _react2.default.createElement(
-	          'ul',
-	          null,
+	          'div',
+	          { className: 'valign-wrapper' },
 	          _react2.default.createElement(
-	            'li',
-	            null,
+	            'ul',
+	            { className: 'valign center-block' },
 	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/Search' },
-	              'Search'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
+	              'li',
+	              { className: 'waves-effect waves-light btn' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/Search', className: 'linkFont' },
+	                'Search'
+	              )
+	            ),
 	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/Add' },
-	              'Add'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            null,
+	              'li',
+	              { className: 'waves-effect waves-light btn' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/Add', className: 'linkFont' },
+	                'Add'
+	              )
+	            ),
 	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/SearchHome' },
-	              'Home'
+	              'li',
+	              { className: 'waves-effect waves-light btn' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/SearchHome', className: 'linkFont' },
+	                'Home'
+	              )
 	            )
 	          )
 	        ),
@@ -28290,9 +28298,9 @@
 
 	var _path2 = _interopRequireDefault(_path);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _reactRouter = __webpack_require__(173);
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -28310,142 +28318,32 @@
 	  }
 
 	  _createClass(NavBar, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      (0, _jquery2.default)('#addTableID').hide();
-	    }
-	  }, {
 	    key: 'nav',
 	    value: function nav() {
 	      return _react2.default.createElement(
-	        'ul',
-	        { className: 'nav nav-tabs' },
-	        _react2.default.createElement(
-	          'li',
-	          { role: 'presentation', className: 'active' },
-	          _react2.default.createElement(
-	            'a',
-	            { href: '#' },
-	            _react2.default.createElement('img', _defineProperty({ height: 35, width: 35, alt: 'Brand', src: 'https://sopreso.com/images/poll-2.png', className: 'img-responsive' }, 'alt', 'Responsive image'))
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'li',
-	          { onClick: function onClick() {
-	              return (0, _jquery2.default)('#addTableID').show();
-	            }, role: 'presentation' },
-	          _react2.default.createElement(
-	            'a',
-	            { href: '#' },
-	            'Add'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'li',
-	          { role: 'presentation' },
-	          _react2.default.createElement(
-	            'a',
-	            { href: '#' },
-	            'Pending'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'li',
-	          { role: 'presentation' },
-	          _react2.default.createElement(
-	            'a',
-	            { href: '#' },
-	            'Voted'
-	          )
-	        )
-	      );
-	    }
-	  }, {
-	    key: 'addTable',
-	    value: function addTable() {
-	      return _react2.default.createElement(
 	        'div',
-	        { className: 'container' },
+	        { className: 'navbar-fixed' },
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
+	          'nav',
+	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col-lg-8' },
+	            { className: 'nav-wrapper' },
 	            _react2.default.createElement(
-	              'table',
-	              { id: 'addTableID', className: 'table table-hover' },
+	              'div',
+	              { className: 'brand-logo' },
+	              'PickUp'
+	            ),
+	            _react2.default.createElement(
+	              'ul',
+	              { className: 'right hide-on-med-and-down' },
 	              _react2.default.createElement(
-	                'thead',
+	                'li',
 	                null,
 	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'th',
-	                    null,
-	                    _react2.default.createElement('img', { height: 15, width: 15, id: 'x', onClick: function onClick() {
-	                        return (0, _jquery2.default)('#addTableID').hide();
-	                      }, src: 'https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/multiply-.png', className: 'img-responsive', alt: 'Responsive image' })
-	                  )
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'tbody',
-	                null,
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement('input', { placeholder: 'Sport', type: 'text', className: 'form-control' })
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement('input', { placeholder: 'Rules', type: 'text', className: 'form-control' })
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement('input', { placeholder: 'Time', type: 'text', className: 'form-control' })
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement('input', { placeholder: 'Players', type: 'text', className: 'form-control' })
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement('input', { placeholder: 'Max Players', type: 'text', className: 'form-control' })
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'tr',
-	                  null,
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    _react2.default.createElement('input', { placeholder: 'Created by', type: 'text', className: 'form-control' })
-	                  )
+	                  _reactRouter.Link,
+	                  { to: '/' },
+	                  'Home'
 	                )
 	              )
 	            )
@@ -28456,22 +28354,15 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var navRender = this.nav();
-	      var addTableRender = this.addTable();
-
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          navRender
+	          this.nav()
 	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          addTableRender
-	        )
+	        this.props.children
 	      );
 	    }
 	  }]);
@@ -39888,28 +39779,7 @@
 	      });
 	    }
 	  }, {
-	    key: 'onDragEnd',
-	    value: function onDragEnd(e) {
-	      console.log('onDragEnd', e);
-	    }
-	  }, {
-	    key: 'onCloseClick',
-	    value: function onCloseClick() {
-	      console.log('onCloseClick');
-	    }
-	  }, {
-	    key: 'onClick',
-	    value: function onClick(e) {
-	      console.log('onClick', e);
-	    }
-	  }, {
 	    key: 'playerEntryInputChange',
-
-
-	    // joinGame() {
-
-	    // };
-
 	    value: function playerEntryInputChange(event) {
 	      this.setState({
 	        newPlayerName: event.target.value
@@ -39930,7 +39800,8 @@
 	    key: 'submitNewPlayerEntry',
 	    value: function submitNewPlayerEntry(event) {
 	      event.preventDefault();
-	      console.log((0, _jquery2.default)(event.target).parents('.card-panel').attr('key'));
+	      console.log((0, _jquery2.default)(event.target).parents('.valign-wrapper').attr('data-id'));
+	      console.log(this.state.newPlayerName);
 	      this.props.submitPlayer();
 	    }
 	  }, {
@@ -40037,8 +39908,8 @@
 	            {
 	              width: '1000px',
 	              height: '1000px',
-	              lat: coords.lat,
-	              lng: coords.lng,
+	              lat: this.props.determinedLocation.lat || 34.024212,
+	              lng: this.props.determinedLocation.lng || -118.496475,
 	              zoom: 12,
 	              loadingMessage: 'Be happy',
 	              params: { v: '3.exp', key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8' },
@@ -40069,7 +39940,8 @@
 	function mapStateToProps(state) {
 	  // dummy data, need to change to state.searchGames
 	  return {
-	    games: state.games
+	    games: state.games,
+	    determinedLocation: state.determinedLocation
 	  };
 	}
 
@@ -40812,7 +40684,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.POSSIBLE_LOCATIONS = exports.SUBMIT_PLAYER = exports.SEARCH_GAMES = exports.GET_GAMES = exports.SUBMIT_GAME = undefined;
+	exports.DETERMINED_LOCATION = exports.POSSIBLE_LOCATIONS = exports.SUBMIT_PLAYER = exports.SEARCH_GAMES = exports.GET_GAMES = exports.SUBMIT_GAME = undefined;
 	exports.searchGames = searchGames;
 	exports.submitGame = submitGame;
 	exports.submitPlayer = submitPlayer;
@@ -40830,16 +40702,42 @@
 	var SEARCH_GAMES = exports.SEARCH_GAMES = 'SEARCH-GAMES';
 	var SUBMIT_PLAYER = exports.SUBMIT_PLAYER = 'SUBMIT-PLAYER';
 	var POSSIBLE_LOCATIONS = exports.POSSIBLE_LOCATIONS = 'POSSIBLE-LOCATIONS';
+	var DETERMINED_LOCATION = exports.DETERMINED_LOCATION = 'DETERMINED-LOCATION';
 
 	function searchGames(searchObj) {
 	  return function (dispatch) {
 	    (0, _axios2.default)({
 	      method: 'GET',
-	      url: 'api/games',
-	      params: searchObj
+	      url: 'https://maps.googleapis.com/maps/api/geocode/json',
+	      params: { address: searchObj.location, key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8' }
 	    }).then(function (response) {
+	      console.log('outside if statement', response.data);
+	      if (response.data.results.length > 1) {
+	        console.log('inside if statement');
+	        dispatch({ type: POSSIBLE_LOCATIONS, payload: response.data.results });
+	        throw new Error('error on search in actions');
+	      } else {
+
+	        searchObj.lat = response.data.results[0].geometry.location.lat;
+	        searchObj.lng = response.data.results[0].geometry.location.lng;
+	        searchObj.address = response.data.results[0].formatted_address;
+	        searchObj.name = response.data.results[0].formatted_address;
+
+	        var determinedLocation = { address: response.data.results[0].formatted_address, lat: response.data.results[0].geometry.location.lat, lng: response.data.results[0].geometry.location.lng };
+	        dispatch({ type: DETERMINED_LOCATION, payload: determinedLocation });
+	        return _axios2.default.get('/api/games', searchObj);
+	      }
+	    })
+	    // axios({
+	    //   method: 'GET',
+	    //   url: 'api/games',
+	    //   params: searchObj,
+	    // })
+	    .then(function (response) {
 	      _reactRouter.browserHistory.push('/searchHome');
 	      dispatch({ type: SEARCH_GAMES, payload: response.data });
+	    }).catch(function (error) {
+	      console.log('errer in the search games axios calls');
 	    });
 	  };
 	}
@@ -42143,6 +42041,10 @@
 
 	var _reducer_possibleLocations2 = _interopRequireDefault(_reducer_possibleLocations);
 
+	var _reducer_determinedLocation = __webpack_require__(413);
+
+	var _reducer_determinedLocation2 = _interopRequireDefault(_reducer_determinedLocation);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var rootReducer = (0, _redux.combineReducers)({
@@ -42150,7 +42052,8 @@
 	  submitGame: _reducer_submitGame2.default,
 	  getGames: _reducer_getGames2.default,
 	  searchGames: _reducer_searchGames2.default,
-	  possibleLocations: _reducer_possibleLocations2.default
+	  possibleLocations: _reducer_possibleLocations2.default,
+	  determinedLocation: _reducer_determinedLocation2.default
 	});
 
 	exports.default = rootReducer;
@@ -42337,6 +42240,27 @@
 	  }
 
 	  _createClass(Search, [{
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      if (this.props.possibleLocations.length > 1) {
+	        (0, _jquery2.default)('.modal').show();
+	      }
+	    }
+	  }, {
+	    key: 'listOfPossibleLocations',
+	    value: function listOfPossibleLocations() {
+	      var _this2 = this;
+
+	      console.log('inside listOfPossibleLocations');
+	      return this.props.possibleLocations.map(function (location) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'listOfPossibleLocations center-align', onClick: _this2.onLocationSubmit.bind(_this2, location.formatted_address) },
+	          location.formatted_address
+	        );
+	      });
+	    }
+	  }, {
 	    key: 'sportsSelect',
 	    value: function sportsSelect(event) {
 	      this.setState({
@@ -42345,13 +42269,20 @@
 	    }
 	  }, {
 	    key: 'onLocationSubmit',
-	    value: function onLocationSubmit(event) {
-	      event.preventDefault();
-	      var temp = this.state.locationInput;
-	      this.setState({
-	        locationInput: ''
-	      });
-	      this.props.searchGames({ sport: this.state.dropDownSport, location: this.state.locationInput });
+	    value: function onLocationSubmit(args) {
+	      var fixedLocation = void 0;
+	      if (typeof arguments[0] === 'string') {
+	        fixedLocation = arguments[0];
+	        arguments[1].preventDefault();
+	      } else {
+	        console.log(arguments, 'args');
+	        arguments[0].preventDefault();
+	        fixedLocation = this.state.locationInput;
+	        this.setState({
+	          locationInput: ''
+	        });
+	      }
+	      this.props.searchGames({ sport: this.state.dropDownSport, location: fixedLocation });
 	    }
 	  }, {
 	    key: 'onLocationEnter',
@@ -42366,7 +42297,25 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { id: 'hi' },
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'modal1', className: 'modal' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'modal-content' },
+	            _react2.default.createElement(
+	              'h4',
+	              { className: 'center-align' },
+	              'Confirm Location'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              this.listOfPossibleLocations()
+	            )
+	          )
+	        ),
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: this.onLocationSubmit.bind(this) },
@@ -42413,11 +42362,17 @@
 	  return Search;
 	}(_react.Component);
 
+	function mapStateToProps(state) {
+	  return {
+	    possibleLocations: state.possibleLocations
+	  };
+	}
+
 	function mapDispatchToProps(dispatch) {
 	  return (0, _redux.bindActionCreators)({ searchGames: _index.searchGames }, dispatch);
 	}
 
-	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Search);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Search);
 
 /***/ },
 /* 307 */
@@ -42514,7 +42469,7 @@
 	      return this.props.possibleLocations.map(function (location) {
 	        return _react2.default.createElement(
 	          'div',
-	          { onClick: _this2.onSubmit.bind(_this2, location.formatted_address) },
+	          { className: 'listOfPossibleLocations', onClick: _this2.onSubmit.bind(_this2, location.formatted_address) },
 	          location.formatted_address
 	        );
 	      });
@@ -42605,11 +42560,6 @@
 	        'div',
 	        { className: 'container' },
 	        _react2.default.createElement(
-	          'a',
-	          { className: 'waves-effect waves-light btn' },
-	          'Modal'
-	        ),
-	        _react2.default.createElement(
 	          'div',
 	          { id: 'modal1', className: 'modal' },
 	          _react2.default.createElement(
@@ -42621,7 +42571,7 @@
 	              'Confirm Location'
 	            ),
 	            _react2.default.createElement(
-	              'p',
+	              'div',
 	              null,
 	              this.listOfPossibleLocations()
 	            )
@@ -56916,6 +56866,29 @@
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(GamesListHome);
+
+/***/ },
+/* 413 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case _index.DETERMINED_LOCATION:
+	      return action.payload;
+	  }
+	  return state;
+	};
+
+	var _index = __webpack_require__(280);
 
 /***/ }
 /******/ ]);

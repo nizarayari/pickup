@@ -45,7 +45,7 @@ class Add extends Component {
     // console.log('inside listOfPossibleLocations')
     return this.props.possibleLocations.map((location) =>{
        return(
-        <div onClick={ this.onSubmit.bind(this, location.formatted_address) }>{ location.formatted_address }</div>
+        <div  className="listOfPossibleLocations" onClick={ this.onSubmit.bind(this, location.formatted_address) }>{ location.formatted_address }</div>
       )
     })
   }
@@ -133,17 +133,12 @@ render() {
   return(
       <div className="container">
 
-
-                  <a className="waves-effect waves-light btn">Modal</a>
-
-                  <div id="modal1" className="modal">
-                    <div className="modal-content">
-                      <h4>Confirm Location</h4>
-                      <p>{ this.listOfPossibleLocations() }</p>
-                    </div>
-
-                  </div>
-
+      <div id="modal1" className="modal">
+        <div className="modal-content">
+          <h4>Confirm Location</h4>
+          <div>{ this.listOfPossibleLocations() }</div>
+        </div>
+      </div>
 
         <div className="row">
           <div className="col-lg-8">

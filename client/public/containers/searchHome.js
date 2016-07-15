@@ -21,22 +21,6 @@ class SearchHome extends Component {
     });
   };
 
-  onDragEnd(e) {
-    console.log('onDragEnd', e);
-  };
-
-  onCloseClick() {
-    console.log('onCloseClick');
-  };
-
-  onClick(e) {
-    console.log('onClick', e);
-  };
-
-  // joinGame() {
-
-  // };
-
   playerEntryInputChange(event) {
     this.setState({
       newPlayerName: event.target.value
@@ -55,7 +39,8 @@ class SearchHome extends Component {
 
   submitNewPlayerEntry(event) {
     event.preventDefault()
-    console.log($(event.target).parents('.card-panel').attr('key'))
+    console.log($(event.target).parents('.valign-wrapper').attr('data-id'))
+    console.log(this.state.newPlayerName)
     this.props.submitPlayer()
   }
 
@@ -88,6 +73,7 @@ class SearchHome extends Component {
     })
   }
 
+
   render() {
 
 
@@ -112,8 +98,8 @@ class SearchHome extends Component {
           <Gmaps
             width={'1000px'}
             height={'1000px'}
-            lat={coords.lat}
-            lng={coords.lng}
+            lat={this.props.determinedLocation.lat || 34.024212}
+            lng={this.props.determinedLocation.lng || -118.496475}
             zoom={12}
             loadingMessage={'Be happy'}
             params={{v: '3.exp', key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8'}}
@@ -142,7 +128,8 @@ class SearchHome extends Component {
 function mapStateToProps(state) {
   // dummy data, need to change to state.searchGames
   return {
-    games: state.games
+    games: state.games,
+    determinedLocation: state.determinedLocation
   }
 }
 
