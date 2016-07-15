@@ -15,7 +15,7 @@ class NavBar extends Component {
           <div className="nav-wrapper">
             <div className="brand-logo">PickUp</div>
             <ul className="right hide-on-med-and-down">
-              <li><Link to="/">Home</Link></li>
+              <li><Link to="/">Search Bar</Link></li>
             </ul>
           </div>
         </nav>

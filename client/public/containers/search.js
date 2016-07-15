@@ -61,26 +61,31 @@ class Search extends Component {
 
 render() {
     return (
-      <div>
+      <div className="valign-center">
+        <div className="valign center-block">
 
-        <div id="modal1" className="modal">
-          <div className="modal-content">
-            <h4 className="center-align">Confirm Location</h4>
-            <div>{ this.listOfPossibleLocations() }</div>
+          <div id="modal1" className="modal">
+            <div className="modal-content">
+              <h4 className="center-align">Confirm Location</h4>
+              <div>{ this.listOfPossibleLocations() }</div>
+            </div>
           </div>
-        </div>
 
-        <form onSubmit={this.onLocationSubmit.bind(this)}>
-          <input value={this.state.locationInput} onChange={this.onLocationEnter.bind(this)} type='text' placeholder='Search'/>
-          <select className='browser-default' onChange={this.sportsSelect.bind(this)}>
-            <option value="default">Select Sport</option>
-            <option value="baseball">Baseball</option>
-            <option value="basketball">Basketball</option>
-            <option value="football">Football</option>
-            <option value="soccer">Soccer</option>
-            <option value="tennis">Tennis</option>
-          </select>
-        </form>             
+          <div>
+            <form onSubmit={this.onLocationSubmit.bind(this)}>
+              <input value={this.state.locationInput} onChange={this.onLocationEnter.bind(this)} type='text' placeholder='Search'/>
+              <select className='browser-default' onChange={this.sportsSelect.bind(this)}>
+                <option value="default">Select Sport</option>
+                <option value="baseball">Baseball</option>
+                <option value="basketball">Basketball</option>
+                <option value="football">Football</option>
+                <option value="soccer">Soccer</option>
+                <option value="tennis">Tennis</option>
+              </select>
+            </form>   
+          </div>
+          
+        </div>           
       </div>
     )
   }  

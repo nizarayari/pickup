@@ -28226,8 +28226,8 @@
 	        null,
 	        _react2.default.createElement(
 	          'h1',
-	          null,
-	          'Anything like hello world, i dont care, please god change'
+	          { className: 'center-align' },
+	          'PickUp'
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -28237,7 +28237,7 @@
 	            { className: 'valign center-block' },
 	            _react2.default.createElement(
 	              'li',
-	              { className: 'waves-effect waves-light btn' },
+	              { className: 'btn red waves-effect waves-light btn' },
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: '/Search', className: 'linkFont' },
@@ -28246,7 +28246,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'li',
-	              { className: 'waves-effect waves-light btn' },
+	              { className: 'btn red waves-effect waves-light btn' },
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: '/Add', className: 'linkFont' },
@@ -28255,7 +28255,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'li',
-	              { className: 'waves-effect waves-light btn' },
+	              { className: 'btn red waves-effect waves-light btn' },
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: '/SearchHome', className: 'linkFont' },
@@ -28343,7 +28343,7 @@
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { to: '/' },
-	                  'Home'
+	                  'Search Bar'
 	                )
 	              )
 	            )
@@ -42297,61 +42297,69 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'valign-center' },
 	        _react2.default.createElement(
 	          'div',
-	          { id: 'modal1', className: 'modal' },
+	          { className: 'valign center-block' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'modal-content' },
-	            _react2.default.createElement(
-	              'h4',
-	              { className: 'center-align' },
-	              'Confirm Location'
-	            ),
+	            { id: 'modal1', className: 'modal' },
 	            _react2.default.createElement(
 	              'div',
-	              null,
-	              this.listOfPossibleLocations()
+	              { className: 'modal-content' },
+	              _react2.default.createElement(
+	                'h4',
+	                { className: 'center-align' },
+	                'Confirm Location'
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                null,
+	                this.listOfPossibleLocations()
+	              )
 	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'form',
-	          { onSubmit: this.onLocationSubmit.bind(this) },
-	          _react2.default.createElement('input', { value: this.state.locationInput, onChange: this.onLocationEnter.bind(this), type: 'text', placeholder: 'Search' }),
+	          ),
 	          _react2.default.createElement(
-	            'select',
-	            { className: 'browser-default', onChange: this.sportsSelect.bind(this) },
+	            'div',
+	            null,
 	            _react2.default.createElement(
-	              'option',
-	              { value: 'default' },
-	              'Select Sport'
-	            ),
-	            _react2.default.createElement(
-	              'option',
-	              { value: 'baseball' },
-	              'Baseball'
-	            ),
-	            _react2.default.createElement(
-	              'option',
-	              { value: 'basketball' },
-	              'Basketball'
-	            ),
-	            _react2.default.createElement(
-	              'option',
-	              { value: 'football' },
-	              'Football'
-	            ),
-	            _react2.default.createElement(
-	              'option',
-	              { value: 'soccer' },
-	              'Soccer'
-	            ),
-	            _react2.default.createElement(
-	              'option',
-	              { value: 'tennis' },
-	              'Tennis'
+	              'form',
+	              { onSubmit: this.onLocationSubmit.bind(this) },
+	              _react2.default.createElement('input', { value: this.state.locationInput, onChange: this.onLocationEnter.bind(this), type: 'text', placeholder: 'Search' }),
+	              _react2.default.createElement(
+	                'select',
+	                { className: 'browser-default', onChange: this.sportsSelect.bind(this) },
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: 'default' },
+	                  'Select Sport'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: 'baseball' },
+	                  'Baseball'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: 'basketball' },
+	                  'Basketball'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: 'football' },
+	                  'Football'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: 'soccer' },
+	                  'Soccer'
+	                ),
+	                _react2.default.createElement(
+	                  'option',
+	                  { value: 'tennis' },
+	                  'Tennis'
+	                )
+	              )
 	            )
 	          )
 	        )
@@ -42478,27 +42486,12 @@
 	    key: 'onSubmit',
 	    value: function onSubmit() {
 	      var address = void 0;
-	      // console.log('inside submit')
 	      console.log(arguments, 'arguments inside submit');
 	      if (typeof arguments[0] !== 'string') {
 	        address = this.state.location;
-	        //   address = this.state.location
-	        //   console.log(address, 'arguments length = 1')
 	      } else {
 	        address = arguments[0];
 	      }
-	      // if(arguments.length === 2) {
-	      //   address = arguments[0]
-	      //   console.log(address, 'arguments length = 2')
-	      // }
-	      // let sport = this.state.sport.toLowerCase();
-	      // let split = sport.split('');
-	      // let capital = split[0].toUpperCase();
-	      // split[0] = capital;
-	      // let joinedSport = split.join('');
-	      // if(address === undefined) {
-	      console.log(address, 'this is address');
-	      // }
 
 	      if (this.validate.call(this)) {
 	        this.props.submitGame({ sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: address, originalPlayers: this.state.original_players, joinedPlayers: '[poop dollar]', playersNeeded: this.state.needed_players, created_by: this.state.created_by });
@@ -42672,7 +42665,7 @@
 	              ),
 	              _react2.default.createElement(
 	                'button',
-	                { onClick: this.onSubmit.bind(this), className: 'btn btn-default', type: 'submit' },
+	                { onClick: this.onSubmit.bind(this), className: 'btn red waves-effect waves-light btn', type: 'submit' },
 	                'submit'
 	              )
 	            )

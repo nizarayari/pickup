@@ -52,28 +52,13 @@ class Add extends Component {
 
   onSubmit() {
     let address;
-    // console.log('inside submit')
     console.log(arguments, 'arguments inside submit')
     if(typeof arguments[0] !== 'string') {
       address = this.state.location
-    //   address = this.state.location
-    //   console.log(address, 'arguments length = 1')
     } else {
       address = arguments[0]
     }
-    // if(arguments.length === 2) {
-    //   address = arguments[0]
-    //   console.log(address, 'arguments length = 2')
-    // }
-    // let sport = this.state.sport.toLowerCase();
-    // let split = sport.split('');
-    // let capital = split[0].toUpperCase();
-    // split[0] = capital;
-    // let joinedSport = split.join('');
-    // if(address === undefined) {
-    console.log(address, 'this is address')
-    // }
-
+  
     if(this.validate.call(this)) {
       this.props.submitGame( { sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: address, originalPlayers: this.state.original_players, joinedPlayers: '[poop dollar]', playersNeeded: this.state.needed_players, created_by: this.state.created_by } )
     //   this.props.history.push('/GameListHome')
@@ -173,7 +158,7 @@ render() {
                     <td><input id="created_by" className="resetError" onChange={ this.onInputChange.bind(this, 'created_by') } value={ this.state.created_by } placeholder='Created by' type="text" className="form-control"/></td>
                   </tr>
                 </tbody>            
-              <button onClick={ this.onSubmit.bind(this) } className="btn btn-default" type="submit">submit</button>
+              <button onClick={ this.onSubmit.bind(this) } className="btn red waves-effect waves-light btn" type="submit">submit</button>
             </table>
           </div>
         </div> 
