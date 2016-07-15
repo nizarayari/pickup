@@ -5,7 +5,8 @@ var router = require('express').Router();
 var Q = require('q')
 //var connection = require('../db/db.js')
 
-
+// This get will return an array of JSON games objects
+// from and includes its location info.
 exports.getGame = function(callback, params) {
 
   var check = 'SELECT * FROM Locations AS l JOIN Games AS g ON l.id = g.locations_id';
@@ -22,6 +23,24 @@ exports.getGame = function(callback, params) {
   })
 }
 
+//This post comes in from the games route and takes JSON object
+// and stores it among the games and locations table
+// The obect it stores should looks like this:
+//  {
+//    "sport" : "soccer",
+//    "rules" : "11v11 Players",
+//    "time" : "3:30 PM",
+//    "location" : "The Field",
+//    "originalPlayers" : 7,
+//    "joinedPlayers" : "[]",
+//    "playersNeeded" : 15,
+//    "created_by" : "Jebroni",
+//    "name" : "Futball",
+//    "address" : "154 Field Ave",
+//    "lat" : "34.7685748",
+//    "lng" : "-99.678574"
+//  }
+
 exports.postGame = function(callback, params) {
   console.log("params in postGame", params);
   var check = 'SELECT * FROM Games WHERE sport = ? AND time = ?';
@@ -32,7 +51,7 @@ exports.postGame = function(callback, params) {
 
  db.query(check, checkValues, function(err, data) {
     if (err) {
-      console.error("game already in db, gamesHelper addGame : ", err);
+      console.error("game already in db, gamesHelper addGame : ", err).json({success: false});
     }
     if (data.length === 0) {
      db.query(insertLocations, insertLocationsValues,  function(err, data) {
@@ -61,25 +80,25 @@ exports.deleteGame = function(callback) {
 
 }
 
-exports.postLocation = function(callback, params) {
-  var check = 'SELECT * FROM Markers WHERE lat = ? and lng = ?';
-  var checkValues = [params.lat, params.lng];
-  var insert = "INSERT INTO Locations (name, address, lat, lng, type) values (?, ?, ?, ?, ?);";
-  var insertValues = [params.name, params.address, params.lat, params.lng, params.type]
+// exports.postLocation = function(callback, params) {
+//   var check = 'SELECT * FROM Markers WHERE lat = ? and lng = ?';
+//   var checkValues = [params.lat, params.lng];
+//   var insert = "INSERT INTO Locations (name, address, lat, lng, type) values (?, ?, ?, ?, ?);";
+//   var insertValues = [params.name, params.address, params.lat, params.lng, params.type]
 
-  db.query(check, checkValues, function(err, data) {
-    if (err) {
-      console.error("Location already in db, gamesHelper.addGameLocation", err);
-    } 
-    if (data.length === 0) {
-      db.query(insert, insertValues, function(err) {
-        if (err) { console.error("error inserting into db, gamesHelper.addGameLocation", err); }
-        else { callback(data); }
-      });
-    } 
-    else { callback(data); console.log("Location successfully stored in db"); }
-  });
-}
+//   db.query(check, checkValues, function(err, data) {
+//     if (err) {
+//       console.error("Location already in db, gamesHelper.addGameLocation", err);
+//     } 
+//     if (data.length === 0) {
+//       db.query(insert, insertValues, function(err) {
+//         if (err) { console.error("error inserting into db, gamesHelper.addGameLocation", err); }
+//         else { callback(data); }
+//       });
+//     } 
+//     else { callback(data); console.log("Location successfully stored in db"); }
+//   });
+// }
 
 
 
