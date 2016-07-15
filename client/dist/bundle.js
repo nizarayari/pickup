@@ -28343,7 +28343,7 @@
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { to: '/' },
-	                  'Search Bar'
+	                  'SEARCH BAR'
 	                )
 	              )
 	            )
