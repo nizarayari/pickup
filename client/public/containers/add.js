@@ -27,24 +27,56 @@ class Add extends Component {
     $("#errorMessage").hide();
   }
 
+  componentDidUpdate() {
+    if(this.props.possibleLocations.length > 1) {
+      $('.modal').show();
+    }
+  }
+
   onInputChange(input, event) {
+    // console.log(this.props.possibleLocations);
     const myObj = {
     }
     myObj[input] = event.target.value
     this.setState(myObj)
   }
 
+  listOfPossibleLocations() {
+    // console.log('inside listOfPossibleLocations')
+    return this.props.possibleLocations.map((location) =>{
+       return(
+        <div onClick={ this.onSubmit.bind(this, location.formatted_address) }>{ location.formatted_address }</div>
+      )
+    })
+  }
+
   onSubmit() {
-    
+    let address;
+    // console.log('inside submit')
+    console.log(arguments, 'arguments inside submit')
+    if(typeof arguments[0] !== 'string') {
+      address = this.state.location
+    //   address = this.state.location
+    //   console.log(address, 'arguments length = 1')
+    } else {
+      address = arguments[0]
+    }
+    // if(arguments.length === 2) {
+    //   address = arguments[0]
+    //   console.log(address, 'arguments length = 2')
+    // }
     // let sport = this.state.sport.toLowerCase();
     // let split = sport.split('');
     // let capital = split[0].toUpperCase();
     // split[0] = capital;
     // let joinedSport = split.join('');
+    // if(address === undefined) {
+    console.log(address, 'this is address')
+    // }
 
     if(this.validate.call(this)) {
-      this.props.submitGame( { sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: this.state.location, originalPlayers: this.state.original_players, joinedPlayers: '[poop dollar]', playersNeeded: this.state.needed_players, created_by: this.state.created_by } )
-      this.props.history.push('/GameListHome')
+      this.props.submitGame( { sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: address, originalPlayers: this.state.original_players, joinedPlayers: '[poop dollar]', playersNeeded: this.state.needed_players, created_by: this.state.created_by } )
+    //   this.props.history.push('/GameListHome')
     }
   }
 
@@ -96,8 +128,23 @@ class Add extends Component {
 
 render() {
 
+          
+
   return(
       <div className="container">
+
+
+                  <a className="waves-effect waves-light btn">Modal</a>
+
+                  <div id="modal1" className="modal">
+                    <div className="modal-content">
+                      <h4>Confirm Location</h4>
+                      <p>{ this.listOfPossibleLocations() }</p>
+                    </div>
+
+                  </div>
+
+
         <div className="row">
           <div className="col-lg-8">
             <table id="addTableID" className="table table-hover">
@@ -145,4 +192,10 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({ submitGame }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(Add)
+function mapStateToProps(state) {
+  return {
+    possibleLocations: state.possibleLocations
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Add)
