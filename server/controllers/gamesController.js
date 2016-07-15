@@ -20,12 +20,17 @@ module.exports = {
         } else {
           res.status(404).send(msg); 
         }
-      }, req.body)
+      }, req.body);
     },
     put : function(req, res) {
-      models.games.put(function(data) {
+      models.games.put(function(data, msg) {
+        if (data) {
+          res.status(201).json({success : true});
+        } else {
+          res.status(404).send(msg)
+        }
 
-      })
+      }, req.body);
     },
     delete : function(req, res) {
       models.games.delete(function(data, msg) {
