@@ -42,7 +42,6 @@ class Search extends Component {
       fixedLocation = arguments[0];
       arguments[1].preventDefault();
     } else {
-      console.log(arguments, 'args')
       arguments[0].preventDefault()
       fixedLocation = this.state.locationInput;
       this.setState({
@@ -53,7 +52,6 @@ class Search extends Component {
   }
 
   onLocationEnter(event) {
-    console.log(this.state)
     this.setState({
       locationInput: event.target.value
     })

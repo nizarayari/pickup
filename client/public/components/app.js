@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NavBar from './navBar';
 import { Link } from 'react-router';
 import SearchHome from '../containers/searchHome';
 

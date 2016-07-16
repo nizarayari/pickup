@@ -28191,10 +28191,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _navBar = __webpack_require__(406);
-
-	var _navBar2 = _interopRequireDefault(_navBar);
-
 	var _reactRouter = __webpack_require__(173);
 
 	var _searchHome = __webpack_require__(257);
@@ -28302,6 +28298,10 @@
 
 	var _index = __webpack_require__(275);
 
+	var _moment = __webpack_require__(295);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28324,6 +28324,12 @@
 
 	    return _this;
 	  }
+
+	  // componentDidMount() {
+	  //   if(this.props.searchGames.length === 0) {
+	  //     console.log('this.props', this.props)
+	  //   }
+	  // }
 
 	  _createClass(SearchHome, [{
 	    key: 'onMapCreated',
@@ -28354,8 +28360,6 @@
 	    key: 'submitNewPlayerEntry',
 	    value: function submitNewPlayerEntry(event) {
 	      event.preventDefault();
-	      console.log((0, _jquery2.default)(event.target).parents('.valign-wrapper').attr('data-id'));
-	      console.log(this.state.newPlayerName);
 	      this.props.submitPlayer();
 	    }
 	  }, {
@@ -28363,7 +28367,7 @@
 	    value: function searchedGameCards() {
 	      var _this2 = this;
 
-	      return this.props.games.map(function (game) {
+	      return this.props.searchGames.map(function (game) {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'valign-wrapper', 'data-id': game.id },
@@ -28393,7 +28397,7 @@
 	                'h4',
 	                { className: 'center-align' },
 	                'Time: ',
-	                game.time
+	                (0, _moment2.default)(game.time).format('MMMM Do YYYY, h:mm a')
 	              ),
 	              _react2.default.createElement(
 	                'p',
@@ -28433,19 +28437,22 @@
 	      });
 	    }
 	  }, {
+	    key: 'gameMarkers',
+	    value: function gameMarkers() {
+	      var _this3 = this;
+
+	      return this.props.searchGames.map(function (game) {
+	        return _react2.default.createElement(_reactGmaps.Marker, {
+	          lat: game.lat,
+	          lng: game.lng,
+	          label: 'g',
+	          draggable: false,
+	          onDragEnd: _this3.onDragEnd });
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-
-	      var coords = {
-	        lat: 34.024212,
-	        lng: -118.496475
-	      };
-
-	      var coords2 = {
-	        lat: 33.784284,
-	        lng: -118.242931
-	      };
-
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -28460,8 +28467,8 @@
 	          _react2.default.createElement(
 	            _reactGmaps.Gmaps,
 	            {
-	              width: '1000px',
-	              height: '1000px',
+	              width: '100%',
+	              height: '100%',
 	              lat: this.props.determinedLocation.lat || 34.024212,
 	              lng: this.props.determinedLocation.lng || -118.496475,
 	              zoom: 12,
@@ -28469,17 +28476,12 @@
 	              params: { v: '3.exp', key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8' },
 	              onMapCreated: this.onMapCreated },
 	            _react2.default.createElement(_reactGmaps.Marker, {
-	              lat: coords.lat,
-	              lng: coords.lng,
+	              lat: this.props.determinedLocation.lat,
+	              lng: this.props.determinedLocation.lng,
+	              label: 'x',
 	              draggable: false,
 	              onDragEnd: this.onDragEnd }),
-	            _react2.default.createElement(_reactGmaps.Marker, {
-	              lat: coords2.lat,
-	              lng: coords2.lng,
-	              draggable: false,
-	              onDragEnd: this.onDragEnd,
-	              label: 'hotdog',
-	              onClick: this.onClick })
+	            this.gameMarkers()
 	          )
 	        )
 	      );
@@ -28492,9 +28494,8 @@
 	;
 
 	function mapStateToProps(state) {
-	  // dummy data, need to change to state.searchGames
 	  return {
-	    games: state.games,
+	    searchGames: state.searchGames,
 	    determinedLocation: state.determinedLocation
 	  };
 	}
@@ -56346,7 +56347,6 @@
 	        fixedLocation = arguments[0];
 	        arguments[1].preventDefault();
 	      } else {
-	        console.log(arguments, 'args');
 	        arguments[0].preventDefault();
 	        fixedLocation = this.state.locationInput;
 	        this.setState({
@@ -56358,7 +56358,6 @@
 	  }, {
 	    key: 'onLocationEnter',
 	    value: function onLocationEnter(event) {
-	      console.log(this.state);
 	      this.setState({
 	        locationInput: event.target.value
 	      });
