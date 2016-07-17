@@ -85,14 +85,31 @@ exports.postGame = function(callback, params) {
 }
 
 exports.addPlayers = function(callback, params) {
-  var insertJoinedPlayers = "UPDATE Players SET playersJoined = params.playersJoined";
-  var insertPlayersNeeded = "UPDATE Player SET playersNeeded = params.playersNeeded";
+  var insertJoinedPlayers = "UPDATE Players SET joinedPlayers = ? WHERE id = ?";
+  var insertJoinedPlayersValues = [params.joinedPlayers, params.id];
+  var insertPlayersNeeded = "UPDATE Players SET playersNeeded = ? WHERE id = ?";
+  var insertPlayersNeededValues = [params.playersNeeded, params.id];
+  var updatedGame = 'SELECT * FROM Locations AS l JOIN Games AS g ON l.id = g.locations_id JOIN Players AS p ON g.id = p.games_id WHERE l.id = ?';
+  var updatesGameValues = [params.id]
 
-  db.query(insertJoinedPlayers, insertPlayersNeeded, function(err, data) {
+  db.query(insertJoinedPlayers, insertJoinedPlayersValues, function(err, data) {
     if (err) {
       console.error("error updating players, helpers addPlayers ", err);
     } else {
-      callback(data);
+      db.query(insertPlayersNeeded, insertPlayersNeededValues, function(err, data) {
+        if (err) {
+          console.error("error updating playersNeeded");
+        } else {
+          db.query(updatedGame, updatesGameValues, function(err, data) {
+            if (err) {
+              console.log('error updating game');
+            } else {
+              console.log('playersJoined update successfull');
+              callback(data)
+            }
+          })
+        }
+      })
     }
   })
 }

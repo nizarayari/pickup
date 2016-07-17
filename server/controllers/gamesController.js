@@ -25,9 +25,9 @@ module.exports = {
     put : function(req, res) {
       models.games.put(function(data, msg) {
         if (data) {
-          res.status(201).json({success : true});
+          res.status(201).send(data);
         } else {
-          res.status(404).send(msg)
+          res.status(404).send(msg);
         }
 
       }, req.body);

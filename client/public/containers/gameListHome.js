@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import moment from 'moment';
 
 class GamesListHome extends Component {
 
@@ -11,11 +12,11 @@ class GamesListHome extends Component {
             <h3>Game: {game.sport}</h3>
           </div>
             <h3 className="left-align">Players Needed: {game.playersNeeded}</h3>
-            <h4 className="center-align">Time: {game.time}</h4>
+            <h4 className="center-align">Time: {moment(game.time).format('MMMM Do YYYY, h:mm a')}</h4>
             <h4 className="center-align">Location: {game.location}</h4>
             <p className="card-text">Rules: {game.rules}</p>
           <div className="card-action">
-            <a href="#">Join game</a> <p className="left-align">Host: {game.created_by}</p>
+            <p className="left-align">Host: {game.created_by}</p>
           </div>
         </div>
       )

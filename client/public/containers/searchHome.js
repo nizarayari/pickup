@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 import { submitPlayer } from '../actions/index';
+import moment from 'moment';
 
 class SearchHome extends Component {
   constructor(props) {
@@ -38,14 +39,55 @@ class SearchHome extends Component {
   };
 
   submitNewPlayerEntry(event) {
+    let uniqueId = Number($(event.target).parents('.valign-wrapper').attr('data-id'));
+    for(let i = 0; i < this.props.searchGames.length; i ++) {
+      if(uniqueId === this.props.searchGames[i].id) {
+        let fromStringToArray = JSON.parse(this.props.searchGames[i].joinedPlayers);
+        fromStringToArray.push(this.state.newPlayerName);
+        
+        let addedJoinedPlayer = JSON.stringify(fromStringToArray)
+        
+        this.props.searchGames[i].joinedPlayers = addedJoinedPlayer;
+        
+        this.props.searchGames[i].playersNeeded --;
+        this.props.submitPlayer(this.props.searchGames[i]);
+      }
+    }
+    this.setState({
+      newPlayerName: ''
+    })
     event.preventDefault()
-    console.log($(event.target).parents('.valign-wrapper').attr('data-id'))
-    console.log(this.state.newPlayerName)
-    this.props.submitPlayer()
+  }
+
+  displayJoinedPlayer(joinedPlayers) {
+  let joinedPlayersArray = JSON.parse(joinedPlayers);
+    return joinedPlayersArray.map((player) => {
+      return (
+        <li>
+          {player}
+        </li>
+      )
+    })
+  }
+
+  renderAction(playersNeeded) {
+    if(playersNeeded <= 0) {
+      return;
+    } else {
+      return(
+        <div className="card-action">
+          <button className="btn red waves-effect waves-light" onClick={this.showNameEntry.bind(this)} type="submit" name="action"> <i className="material-icons right">send</i>Join
+            </button>
+            <form className="newPlayerEntry" onSubmit={this.submitNewPlayerEntry.bind(this)}>
+              <input onChange={this.playerEntryInputChange.bind(this)} value={this.state.newPlayerName} type='text' placeholder='Enter Your Name'></input>
+            </form>
+        </div>
+      )
+    }
   }
 
   searchedGameCards() {
-    return this.props.games.map((game) => {
+    return this.props.searchGames.map((game) => {
       return(
         <div className="valign-wrapper" data-id={game.id}>
           <div className="valign center-block">
@@ -55,16 +97,14 @@ class SearchHome extends Component {
                     <h3>Game: {game.sport}</h3>
                   </div>
                     <h3 className="left-align">Players Needed: {game.playersNeeded}</h3>
-                    <h4 className="center-align">Time: {game.time}</h4>
+                    <h4 className="center-align">Time: {moment(game.time).format('MMMM Do YYYY, h:mm a')}</h4>
+                    <h4 className="center-align">Location: {game.location}</h4>
                     <p className="card-text">Rules: {game.rules}</p>
-                  <div className="card-action">
-                    <button className="btn red waves-effect waves-light" onClick={this.showNameEntry.bind(this)} type="submit" name="action"> <i className="material-icons right">send</i>Join
-                      </button>
-                      <form className="newPlayerEntry" onSubmit={this.submitNewPlayerEntry.bind(this)}>
-                        <input onChange={this.playerEntryInputChange.bind(this)} value={this.state.newPlayerName} type='text' placeholder='Enter Your Name'></input>
-                      </form>
+                    {this.renderAction(game.playersNeeded)}
                     <p className="left-align">Host: {game.created_by}</p>
-                  </div>
+                    <ul>
+                      Joined Players: {this.displayJoinedPlayer(game.joinedPlayers)}
+                    </ul>
                 </div>
 
           </div>                    
@@ -73,20 +113,22 @@ class SearchHome extends Component {
     })
   }
 
+   gameMarkers() {
+    return this.props.searchGames.map((game) => {
+      return(
+        <Marker
+          lat={game.lat}
+          lng={game.lng}
+          label={'g'}
+          draggable={false}
+          onDragEnd={this.onDragEnd} />
+      )
+    })
+  }
+
+ 
 
   render() {
-
-
-  const coords = {
-    lat: 34.024212,
-    lng: -118.496475
-  };
-
-  const coords2 = {
-    lat: 33.784284,
-    lng: -118.242931
-  };
-
     return (
       <div>
 
@@ -96,8 +138,8 @@ class SearchHome extends Component {
     
         <div id='map'>
           <Gmaps
-            width={'1000px'}
-            height={'1000px'}
+            width={'100%'}
+            height={'100%'}
             lat={this.props.determinedLocation.lat || 34.024212}
             lng={this.props.determinedLocation.lng || -118.496475}
             zoom={12}
@@ -105,17 +147,12 @@ class SearchHome extends Component {
             params={{v: '3.exp', key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8'}}
             onMapCreated={this.onMapCreated}>
             <Marker
-              lat={coords.lat}
-              lng={coords.lng}
+              lat={this.props.determinedLocation.lat}
+              lng={this.props.determinedLocation.lng}
+              label={'x'}
               draggable={false}
               onDragEnd={this.onDragEnd} />
-            <Marker
-              lat={coords2.lat}
-              lng={coords2.lng}
-              draggable={false}
-              onDragEnd={this.onDragEnd}
-              label={'hotdog'}
-              onClick={this.onClick} /> 
+            { this.gameMarkers() }
           </Gmaps>
         </div>
 
@@ -126,9 +163,8 @@ class SearchHome extends Component {
 };
 
 function mapStateToProps(state) {
-  // dummy data, need to change to state.searchGames
   return {
-    games: state.games,
+    searchGames: state.searchGames,
     determinedLocation: state.determinedLocation
   }
 }

@@ -42,7 +42,6 @@ class Search extends Component {
       fixedLocation = arguments[0];
       arguments[1].preventDefault();
     } else {
-      console.log(arguments, 'args')
       arguments[0].preventDefault()
       fixedLocation = this.state.locationInput;
       this.setState({
@@ -53,7 +52,6 @@ class Search extends Component {
   }
 
   onLocationEnter(event) {
-    console.log(this.state)
     this.setState({
       locationInput: event.target.value
     })
@@ -74,14 +72,6 @@ render() {
           <div>
             <form onSubmit={this.onLocationSubmit.bind(this)}>
               <input value={this.state.locationInput} onChange={this.onLocationEnter.bind(this)} type='text' placeholder='Search'/>
-              <select className='browser-default' onChange={this.sportsSelect.bind(this)}>
-                <option value="default">Select Sport</option>
-                <option value="baseball">Baseball</option>
-                <option value="basketball">Basketball</option>
-                <option value="football">Football</option>
-                <option value="soccer">Soccer</option>
-                <option value="tennis">Tennis</option>
-              </select>
             </form>   
           </div>
           
