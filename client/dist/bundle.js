@@ -28229,10 +28229,10 @@
 	          'div',
 	          { className: 'valign-wrapper' },
 	          _react2.default.createElement(
-	            'ul',
+	            'div',
 	            { className: 'valign center-block' },
 	            _react2.default.createElement(
-	              'li',
+	              'button',
 	              { className: 'btn red waves-effect waves-light btn' },
 	              _react2.default.createElement(
 	                _reactRouter.Link,
@@ -28241,21 +28241,12 @@
 	              )
 	            ),
 	            _react2.default.createElement(
-	              'li',
+	              'button',
 	              { className: 'btn red waves-effect waves-light btn' },
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: '/Add', className: 'linkFont' },
 	                'Add'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              { className: 'btn red waves-effect waves-light btn' },
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/SearchHome', className: 'linkFont' },
-	                'Home'
 	              )
 	            )
 	          )
@@ -28325,12 +28316,6 @@
 	    return _this;
 	  }
 
-	  // componentDidMount() {
-	  //   if(this.props.searchGames.length === 0) {
-	  //     console.log('this.props', this.props)
-	  //   }
-	  // }
-
 	  _createClass(SearchHome, [{
 	    key: 'onMapCreated',
 	    value: function onMapCreated(map) {
@@ -28359,8 +28344,64 @@
 	  }, {
 	    key: 'submitNewPlayerEntry',
 	    value: function submitNewPlayerEntry(event) {
+	      var uniqueId = Number((0, _jquery2.default)(event.target).parents('.valign-wrapper').attr('data-id'));
+	      for (var i = 0; i < this.props.searchGames.length; i++) {
+	        if (uniqueId === this.props.searchGames[i].id) {
+	          var fromStringToArray = JSON.parse(this.props.searchGames[i].joinedPlayers);
+	          fromStringToArray.push(this.state.newPlayerName);
+
+	          var addedJoinedPlayer = JSON.stringify(fromStringToArray);
+
+	          this.props.searchGames[i].joinedPlayers = addedJoinedPlayer;
+
+	          this.props.searchGames[i].playersNeeded--;
+	          this.props.submitPlayer(this.props.searchGames[i]);
+	        }
+	      }
+	      this.setState({
+	        newPlayerName: ''
+	      });
 	      event.preventDefault();
-	      this.props.submitPlayer();
+	    }
+	  }, {
+	    key: 'displayJoinedPlayer',
+	    value: function displayJoinedPlayer(joinedPlayers) {
+	      var joinedPlayersArray = JSON.parse(joinedPlayers);
+	      return joinedPlayersArray.map(function (player) {
+	        return _react2.default.createElement(
+	          'li',
+	          null,
+	          player
+	        );
+	      });
+	    }
+	  }, {
+	    key: 'renderAction',
+	    value: function renderAction(playersNeeded) {
+	      if (playersNeeded <= 0) {
+	        return;
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'card-action' },
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'btn red waves-effect waves-light', onClick: this.showNameEntry.bind(this), type: 'submit', name: 'action' },
+	            ' ',
+	            _react2.default.createElement(
+	              'i',
+	              { className: 'material-icons right' },
+	              'send'
+	            ),
+	            'Join'
+	          ),
+	          _react2.default.createElement(
+	            'form',
+	            { className: 'newPlayerEntry', onSubmit: this.submitNewPlayerEntry.bind(this) },
+	            _react2.default.createElement('input', { onChange: this.playerEntryInputChange.bind(this), value: this.state.newPlayerName, type: 'text', placeholder: 'Enter Your Name' })
+	          )
+	        );
+	      }
 	    }
 	  }, {
 	    key: 'searchedGameCards',
@@ -28400,36 +28441,29 @@
 	                (0, _moment2.default)(game.time).format('MMMM Do YYYY, h:mm a')
 	              ),
 	              _react2.default.createElement(
+	                'h4',
+	                { className: 'center-align' },
+	                'Location: ',
+	                game.location
+	              ),
+	              _react2.default.createElement(
 	                'p',
 	                { className: 'card-text' },
 	                'Rules: ',
 	                game.rules
 	              ),
+	              _this2.renderAction(game.playersNeeded),
 	              _react2.default.createElement(
-	                'div',
-	                { className: 'card-action' },
-	                _react2.default.createElement(
-	                  'button',
-	                  { className: 'btn red waves-effect waves-light', onClick: _this2.showNameEntry.bind(_this2), type: 'submit', name: 'action' },
-	                  ' ',
-	                  _react2.default.createElement(
-	                    'i',
-	                    { className: 'material-icons right' },
-	                    'send'
-	                  ),
-	                  'Join'
-	                ),
-	                _react2.default.createElement(
-	                  'form',
-	                  { className: 'newPlayerEntry', onSubmit: _this2.submitNewPlayerEntry.bind(_this2) },
-	                  _react2.default.createElement('input', { onChange: _this2.playerEntryInputChange.bind(_this2), value: _this2.state.newPlayerName, type: 'text', placeholder: 'Enter Your Name' })
-	                ),
-	                _react2.default.createElement(
-	                  'p',
-	                  { className: 'left-align' },
-	                  'Host: ',
-	                  game.created_by
-	                )
+	                'p',
+	                { className: 'left-align' },
+	                'Host: ',
+	                game.created_by
+	              ),
+	              _react2.default.createElement(
+	                'ul',
+	                null,
+	                'Joined Players: ',
+	                _this2.displayJoinedPlayer(game.joinedPlayers)
 	              )
 	            )
 	          )
@@ -39348,7 +39382,6 @@
 	    }).then(function (response) {
 	      console.log('outside if statement', response.data);
 	      if (response.data.results.length > 1) {
-	        console.log('inside if statement');
 	        dispatch({ type: POSSIBLE_LOCATIONS, payload: response.data.results });
 	        throw new Error('error on search in actions');
 	      } else {
@@ -39369,10 +39402,10 @@
 	    //   params: searchObj,
 	    // })
 	    .then(function (response) {
-	      _reactRouter.browserHistory.push('/searchHome');
+	      _reactRouter.browserHistory.push('/SearchHome');
 	      dispatch({ type: SEARCH_GAMES, payload: response.data });
 	    }).catch(function (error) {
-	      console.log('errer in the search games axios calls');
+	      console.log('error in the search games axios calls');
 	    });
 	  };
 	}
@@ -39415,21 +39448,18 @@
 	}
 
 	function submitPlayer(playerObj) {
-	  var fun = { id: 1, sport: "grape", rules: "7 suck", time: 700, location: [{ lat: '48.784284', long: '-9.242931' }], current_players: 9, playersNeeded: 8, created_by: "merik" };
+	  console.log('inside submitPlayer', playerObj);
+	  // const fun = {id: 1, sport: "grape", rules: "7 suck", time: 700, location: [{lat: '48.784284', long: '-9.242931'}], current_players: 9, playersNeeded: 8, created_by: "merik"}
 	  return function (dispatch) {
-	    console.log('im inside dispatch');
-	    dispatch({ type: SUBMIT_PLAYER, payload: fun });
-	  };
+	    console.log('inside dispatch', dispatch);
 
-	  // return function(dispatch) {
-	  //   axios.post('/something', playerObj)
-	  //     .then(function(response) {
-	  //       dispatch({ type: SUBMIT_PLAYER, payload: response.data})
-	  //     })
-	  //     .catch(function(error) {
-	  //       console.log(error, 'there was an error in the submit player action')
-	  //     })
-	  // }
+	    _axios2.default.put('/api/games', playerObj).then(function (response) {
+	      console.log('inside then', response);
+	      dispatch({ type: SUBMIT_PLAYER, payload: response.data });
+	    }).catch(function (error) {
+	      console.log(error, 'there was an error in the submit player action');
+	    });
+	  };
 	}
 
 /***/ },
@@ -54745,7 +54775,7 @@
 /* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -54757,17 +54787,20 @@
 
 	  switch (action.type) {
 	    case _index.SUBMIT_PLAYER:
-	      return apple(arr, action.payload);
+	      return updateGameInList(state, action.payload);
 	  }
-	  return arr;
+	  return state;
 	};
 
 	var _index = __webpack_require__(275);
 
-	var arr = [{ id: 1, sport: "fooseball", rules: "dont suck", time: 1300, location: [{ lat: '33.784284', long: '-118.242931' }], current_players: 1, playersNeeded: 2, created_by: "mike" }, { id: 2, sport: "baseball", rules: "hit the ball", time: 200, location: [{ lat: '33.879822', long: '-118.296490' }], current_players: 1, playersNeeded: 3, created_by: "merik" }, { id: 3, sport: "basketball", rules: "shoot 3's", time: 700, location: [{ lat: '33.978243', long: '-118.032646' }], current_players: 1, playersNeeded: 4, created_by: "phil" }];
+	// const arr = [
+	//   {id: 1, sport: "fooseball", rules: "dont suck", time: 1300, location: [{lat: '33.784284', long: '-118.242931'}], current_players: 1, playersNeeded: 2, created_by: "mike"},
+	//   {id: 2, sport: "baseball", rules: "hit the ball", time: 200, location: [{lat: '33.879822', long: '-118.296490'}], current_players: 1, playersNeeded: 3, created_by: "merik"},
+	//   {id: 3, sport: "basketball", rules: "shoot 3's", time: 700, location: [{lat: '33.978243', long: '-118.032646'}], current_players: 1, playersNeeded: 4, created_by: "phil"}
+	// ]
 
-	var apple = function apple(arr, obj) {
-
+	var updateGameInList = function updateGameInList(arr, obj) {
 	  var modArr = arr.map(function (game) {
 	    if (game.id === obj.id) {
 	      return obj;
@@ -56395,41 +56428,7 @@
 	            _react2.default.createElement(
 	              'form',
 	              { onSubmit: this.onLocationSubmit.bind(this) },
-	              _react2.default.createElement('input', { value: this.state.locationInput, onChange: this.onLocationEnter.bind(this), type: 'text', placeholder: 'Search' }),
-	              _react2.default.createElement(
-	                'select',
-	                { className: 'browser-default', onChange: this.sportsSelect.bind(this) },
-	                _react2.default.createElement(
-	                  'option',
-	                  { value: 'default' },
-	                  'Select Sport'
-	                ),
-	                _react2.default.createElement(
-	                  'option',
-	                  { value: 'baseball' },
-	                  'Baseball'
-	                ),
-	                _react2.default.createElement(
-	                  'option',
-	                  { value: 'basketball' },
-	                  'Basketball'
-	                ),
-	                _react2.default.createElement(
-	                  'option',
-	                  { value: 'football' },
-	                  'Football'
-	                ),
-	                _react2.default.createElement(
-	                  'option',
-	                  { value: 'soccer' },
-	                  'Soccer'
-	                ),
-	                _react2.default.createElement(
-	                  'option',
-	                  { value: 'tennis' },
-	                  'Tennis'
-	                )
-	              )
+	              _react2.default.createElement('input', { value: this.state.locationInput, onChange: this.onLocationEnter.bind(this), type: 'text', placeholder: 'Search' })
 	            )
 	          )
 	        )
@@ -56533,7 +56532,6 @@
 	  }, {
 	    key: 'onInputChange',
 	    value: function onInputChange(input, event) {
-	      // console.log(this.props.possibleLocations);
 	      var myObj = {};
 	      myObj[input] = event.target.value;
 	      this.setState(myObj);
@@ -56543,7 +56541,6 @@
 	    value: function listOfPossibleLocations() {
 	      var _this2 = this;
 
-	      // console.log('inside listOfPossibleLocations')
 	      return this.props.possibleLocations.map(function (location) {
 	        return _react2.default.createElement(
 	          'div',
@@ -56564,8 +56561,8 @@
 	      }
 
 	      if (this.validate.call(this)) {
-	        this.props.submitGame({ sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: address, originalPlayers: this.state.original_players, joinedPlayers: '[poop dollar]', playersNeeded: this.state.needed_players, created_by: this.state.created_by });
-	        //   this.props.history.push('/GameListHome')
+	        var arrStringified = JSON.stringify([]);
+	        this.props.submitGame({ sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: address, originalPlayers: this.state.original_players, joinedPlayers: arrStringified, playersNeeded: this.state.needed_players, created_by: this.state.created_by });
 	      }
 	    }
 	  }, {
@@ -56778,6 +56775,10 @@
 
 	var _reactRedux = __webpack_require__(248);
 
+	var _moment = __webpack_require__(295);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -56822,7 +56823,7 @@
 	            'h4',
 	            { className: 'center-align' },
 	            'Time: ',
-	            game.time
+	            (0, _moment2.default)(game.time).format('MMMM Do YYYY, h:mm a')
 	          ),
 	          _react2.default.createElement(
 	            'h4',
@@ -56839,12 +56840,6 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'card-action' },
-	            _react2.default.createElement(
-	              'a',
-	              { href: '#' },
-	              'Join game'
-	            ),
-	            ' ',
 	            _react2.default.createElement(
 	              'p',
 	              { className: 'left-align' },

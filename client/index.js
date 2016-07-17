@@ -27,8 +27,8 @@ const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
         </Route>
         
         <Route path="/NavBar" component={NavBar} >
-            <Route path="/SearchHome" component={SearchHome} />
-            <Route path="/GameListHome" component={GameListHome} />
+          <Route path="/SearchHome" component={SearchHome} />
+          <Route path="/GameListHome" component={GameListHome} />
         </Route>
 
       </Router>

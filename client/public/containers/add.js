@@ -34,7 +34,6 @@ class Add extends Component {
   }
 
   onInputChange(input, event) {
-    // console.log(this.props.possibleLocations);
     const myObj = {
     }
     myObj[input] = event.target.value
@@ -42,7 +41,6 @@ class Add extends Component {
   }
 
   listOfPossibleLocations() {
-    // console.log('inside listOfPossibleLocations')
     return this.props.possibleLocations.map((location) =>{
        return(
         <div  className="listOfPossibleLocations" onClick={ this.onSubmit.bind(this, location.formatted_address) }>{ location.formatted_address }</div>
@@ -60,8 +58,8 @@ class Add extends Component {
     }
   
     if(this.validate.call(this)) {
-      this.props.submitGame( { sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: address, originalPlayers: this.state.original_players, joinedPlayers: '[poop dollar]', playersNeeded: this.state.needed_players, created_by: this.state.created_by } )
-    //   this.props.history.push('/GameListHome')
+      let arrStringified = JSON.stringify([]);
+      this.props.submitGame( { sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: address, originalPlayers: this.state.original_players, joinedPlayers: arrStringified, playersNeeded: this.state.needed_players, created_by: this.state.created_by } )
     }
   }
 

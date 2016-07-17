@@ -18,7 +18,6 @@ export function searchGames(searchObj) {
     .then(function(response) {
       console.log('outside if statement', response.data)
       if(response.data.results.length > 1) {
-        console.log('inside if statement')
         dispatch({ type: POSSIBLE_LOCATIONS, payload: response.data.results })
         throw new Error('error on search in actions')
       } else {
@@ -39,11 +38,11 @@ export function searchGames(searchObj) {
     //   params: searchObj,
     // })
       .then(function(response) {
-        browserHistory.push('/searchHome')
+        browserHistory.push('/SearchHome')
         dispatch({ type: SEARCH_GAMES, payload: response.data })
       })
       .catch(function(error) {
-        console.log('errer in the search games axios calls')
+        console.log('error in the search games axios calls')
       })
   }
 }
@@ -69,7 +68,7 @@ export function submitGame(gameObj) {
           gameObj.name = response.data.results[0].formatted_address
           return axios.post('/api/games', gameObj)
         }
-    })
+      })
             .then(function(response) {
               console.log('above the acios get call line 44')
              return axios.get('/api/games')
@@ -94,21 +93,18 @@ export function submitGame(gameObj) {
 }
 
 export function submitPlayer(playerObj) {
-  const fun = {id: 1, sport: "grape", rules: "7 suck", time: 700, location: [{lat: '48.784284', long: '-9.242931'}], current_players: 9, playersNeeded: 8, created_by: "merik"}
+  console.log('inside submitPlayer', playerObj)
+  // const fun = {id: 1, sport: "grape", rules: "7 suck", time: 700, location: [{lat: '48.784284', long: '-9.242931'}], current_players: 9, playersNeeded: 8, created_by: "merik"}
   return function(dispatch) {
-    console.log('im inside dispatch')
-    dispatch({ type: SUBMIT_PLAYER, payload: fun })
+  console.log('inside dispatch', dispatch)
+
+    axios.put('/api/games', playerObj)
+      .then(function(response) {
+       console.log('inside then', response)
+        dispatch({ type: SUBMIT_PLAYER, payload: response.data})
+      })
+      .catch(function(error) {
+        console.log(error, 'there was an error in the submit player action')
+      })
   }
-
-
-
-  // return function(dispatch) {
-  //   axios.post('/something', playerObj)
-  //     .then(function(response) {
-  //       dispatch({ type: SUBMIT_PLAYER, payload: response.data})
-  //     })
-  //     .catch(function(error) {
-  //       console.log(error, 'there was an error in the submit player action')
-  //     })
-  // }
 }

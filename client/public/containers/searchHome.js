@@ -16,12 +16,6 @@ class SearchHome extends Component {
 
   }
 
-  // componentDidMount() {
-  //   if(this.props.searchGames.length === 0) {
-  //     console.log('this.props', this.props)
-  //   }
-  // }
-
   onMapCreated(map) {
     map.setOptions({
       disableDefaultUI: true
@@ -45,8 +39,51 @@ class SearchHome extends Component {
   };
 
   submitNewPlayerEntry(event) {
+    let uniqueId = Number($(event.target).parents('.valign-wrapper').attr('data-id'));
+    for(let i = 0; i < this.props.searchGames.length; i ++) {
+      if(uniqueId === this.props.searchGames[i].id) {
+        let fromStringToArray = JSON.parse(this.props.searchGames[i].joinedPlayers);
+        fromStringToArray.push(this.state.newPlayerName);
+        
+        let addedJoinedPlayer = JSON.stringify(fromStringToArray)
+        
+        this.props.searchGames[i].joinedPlayers = addedJoinedPlayer;
+        
+        this.props.searchGames[i].playersNeeded --;
+        this.props.submitPlayer(this.props.searchGames[i]);
+      }
+    }
+    this.setState({
+      newPlayerName: ''
+    })
     event.preventDefault()
-    this.props.submitPlayer()
+  }
+
+  displayJoinedPlayer(joinedPlayers) {
+  let joinedPlayersArray = JSON.parse(joinedPlayers);
+    return joinedPlayersArray.map((player) => {
+      return (
+        <li>
+          {player}
+        </li>
+      )
+    })
+  }
+
+  renderAction(playersNeeded) {
+    if(playersNeeded <= 0) {
+      return;
+    } else {
+      return(
+        <div className="card-action">
+          <button className="btn red waves-effect waves-light" onClick={this.showNameEntry.bind(this)} type="submit" name="action"> <i className="material-icons right">send</i>Join
+            </button>
+            <form className="newPlayerEntry" onSubmit={this.submitNewPlayerEntry.bind(this)}>
+              <input onChange={this.playerEntryInputChange.bind(this)} value={this.state.newPlayerName} type='text' placeholder='Enter Your Name'></input>
+            </form>
+        </div>
+      )
+    }
   }
 
   searchedGameCards() {
@@ -61,15 +98,13 @@ class SearchHome extends Component {
                   </div>
                     <h3 className="left-align">Players Needed: {game.playersNeeded}</h3>
                     <h4 className="center-align">Time: {moment(game.time).format('MMMM Do YYYY, h:mm a')}</h4>
+                    <h4 className="center-align">Location: {game.location}</h4>
                     <p className="card-text">Rules: {game.rules}</p>
-                  <div className="card-action">
-                    <button className="btn red waves-effect waves-light" onClick={this.showNameEntry.bind(this)} type="submit" name="action"> <i className="material-icons right">send</i>Join
-                      </button>
-                      <form className="newPlayerEntry" onSubmit={this.submitNewPlayerEntry.bind(this)}>
-                        <input onChange={this.playerEntryInputChange.bind(this)} value={this.state.newPlayerName} type='text' placeholder='Enter Your Name'></input>
-                      </form>
+                    {this.renderAction(game.playersNeeded)}
                     <p className="left-align">Host: {game.created_by}</p>
-                  </div>
+                    <ul>
+                      Joined Players: {this.displayJoinedPlayer(game.joinedPlayers)}
+                    </ul>
                 </div>
 
           </div>                    
@@ -117,7 +152,7 @@ class SearchHome extends Component {
               label={'x'}
               draggable={false}
               onDragEnd={this.onDragEnd} />
-            {this.gameMarkers() }
+            { this.gameMarkers() }
           </Gmaps>
         </div>
 
