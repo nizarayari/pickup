@@ -28422,32 +28422,32 @@
 	                'div',
 	                { className: 'card-title' },
 	                _react2.default.createElement(
-	                  'h3',
+	                  'h5',
 	                  null,
 	                  'Game: ',
 	                  game.sport
 	                )
 	              ),
 	              _react2.default.createElement(
-	                'h3',
+	                'h5',
 	                { className: 'left-align' },
 	                'Players Needed: ',
 	                game.playersNeeded
 	              ),
 	              _react2.default.createElement(
-	                'h4',
-	                { className: 'center-align' },
+	                'h5',
+	                { className: 'left-align' },
 	                'Time: ',
 	                (0, _moment2.default)(game.time).format('MMMM Do YYYY, h:mm a')
 	              ),
 	              _react2.default.createElement(
-	                'h4',
-	                { className: 'center-align' },
+	                'h5',
+	                { className: 'left-align' },
 	                'Location: ',
 	                game.location
 	              ),
 	              _react2.default.createElement(
-	                'p',
+	                'h5',
 	                { className: 'card-text' },
 	                'Rules: ',
 	                game.rules
@@ -28463,7 +28463,11 @@
 	                'ul',
 	                null,
 	                'Joined Players: ',
-	                _this2.displayJoinedPlayer(game.joinedPlayers)
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _this2.displayJoinedPlayer(game.joinedPlayers)
+	                )
 	              )
 	            )
 	          )
@@ -54983,7 +54987,7 @@
 	          null,
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'nav-wrapper' },
+	            { className: 'nav-wrapper red' },
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'brand-logo' },

@@ -12,7 +12,7 @@ class NavBar extends Component {
     return(
       <div className="navbar-fixed">
         <nav>
-          <div className="nav-wrapper">
+          <div className="nav-wrapper red">
             <div className="brand-logo">PickUp</div>
             <ul className="right hide-on-med-and-down">
               <li><Link to="/">SEARCH BAR</Link></li>

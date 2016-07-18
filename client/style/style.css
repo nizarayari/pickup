@@ -11,9 +11,17 @@
 	cursor: pointer
 }
 
-/*#addTableID {
-	width: 40;
+/*body {
+	background-color: #f5f5f4;
 }*/
+
+h1 {
+	font-family: 'Pacifico', cursive;
+}
+
+.brand-logo {
+	font-family: 'Pacifico', cursive;
+}
 
 #fixedNav {
 	/*height: 10%;*/
@@ -44,7 +52,7 @@ html, body {
 #gamesView {
 	/*display: inline-block;*/
 	float: right;
-	width: 33%;
+	width: 23%;
 	background-color: red;
 	height: 100%;
 	overflow: scroll;
@@ -66,7 +74,7 @@ html, body {
 	/*display: inline-block;*/
 	/*bottom: 0px;*/
 	height: 100%;
-	width: 67%;
+	width: 77%;
 	overflow: scroll;
 	/*left: 500px;*/
 	position: fixed;
