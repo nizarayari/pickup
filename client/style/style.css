@@ -1,0 +1,103 @@
+/*.img-responsive {
+	max-width: 10%;  
+	max-height: auto;  
+}*/
+
+/*#addTableID {*/
+	/*visibility: hidden;*/
+/*}*/
+
+#x {
+	cursor: pointer
+}
+
+body, html {
+	background: linear-gradient(to bottom, #f7fbfc 0%,#d9edf2 40%,#add9e4 100%);
+}
+
+h1 {
+	font-family: 'Pacifico', cursive;
+}
+
+.brand-logo {
+	font-family: 'Pacifico', cursive;
+}
+
+#fixedNav {
+	/*height: 10%;*/
+	position: fixed;
+}
+
+.linkFont {
+	color: white;
+}
+
+.fieldError {
+	border-color: red;
+	border-width: 3px;
+}
+
+#errorMessage {
+	display: none;
+}
+
+.newPlayerEntry {
+	display: none;
+}
+
+html, body {
+    height: 100%;
+}
+
+#gamesView {
+	/*display: inline-block;*/
+	float: right;
+	width: 28%;
+	background-color: red;
+	height: 100%;
+	overflow: scroll;
+}
+
+.listOfPossibleLocations {
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.listOfPossibleLocations:hover {
+	font-size: 30px;
+	background-color: lightgrey;
+}
+
+#map {
+	top: 8%;
+	float: left;
+	/*display: inline-block;*/
+	/*bottom: 0px;*/
+	height: 100%;
+	width: 72%;
+	overflow: scroll;
+	/*left: 500px;*/
+	position: fixed;
+	/*right: 0px;*/
+}
+
+.inputBox {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.brand-logo {
+	margin-left: 14px;
+}
+
+.fa-globe {
+	display: inline;
+}
+
+.fa-calendar {
+	margin-left: 5px;
+}
+
+.card.card-panel.hoverable {
+	width: 390px;
+}
