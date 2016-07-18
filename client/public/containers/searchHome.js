@@ -16,6 +16,10 @@ class SearchHome extends Component {
 
   }
 
+  componentWillMount() {
+    $()
+  }
+
   onMapCreated(map) {
     map.setOptions({
       disableDefaultUI: true
@@ -94,15 +98,32 @@ class SearchHome extends Component {
 
                 <div className="card card-panel hoverable">
                   <div className="card-title">
-                    <h5>Game: {game.sport}</h5>
+                  <p><strong>ID: </strong>{String.fromCharCode(game.id + 64)}</p>
+                    <h4 className="center-align">
+                      {game.sport}
+                    </h4>
+
                   </div>
-                    <h5 className="left-align">Players Needed: {game.playersNeeded}</h5>
-                    <h5 className="left-align">Time: {moment(game.time).format('MMMM Do YYYY, h:mm a')}</h5>
-                    <h5 className="left-align">Location: {game.location}</h5>
-                    <h5 className="card-text">Rules: {game.rules}</h5>
+                    <h5 className="left-align">
+                      <i className="fa fa-globe fa-lg" aria-hidden="true"></i> 
+                      &nbsp; &nbsp;{game.location}
+                    </h5>
+                    <h5 className="left-align">
+                      <i className="fa fa-calendar" aria-hidden="true"></i> 
+                      &nbsp; &nbsp;{moment(game.time).format('MMMM Do YYYY \n h:mm a')}
+                    </h5>
+                    <h5 className="center-align">
+                      waiting for <strong>{game.playersNeeded}</strong> players
+                    </h5>
+                    <h5 className="card-text center-align"><strong>Rules:</strong> {game.rules}</h5>
                     {this.renderAction(game.playersNeeded)}
-                    <p className="left-align">Host: {game.created_by}</p>
-                    <ul>Joined Players: <li>{this.displayJoinedPlayer(game.joinedPlayers)}</li>
+                    <p className="left-align">
+                      <i className="fa fa-star" aria-hidden="true"></i> 
+                      &nbsp; &nbsp;{game.created_by}
+                    </p>
+                    <ul>
+                      <i className="fa fa-users fa-lg" aria-hidden="true"></i> 
+                      <li>{this.displayJoinedPlayer(game.joinedPlayers)}</li>
                     </ul>
                 </div>
 
@@ -118,7 +139,7 @@ class SearchHome extends Component {
         <Marker
           lat={game.lat}
           lng={game.lng}
-          label={'g'}
+          label={String.fromCharCode(game.id + 64)}
           draggable={false}
           onDragEnd={this.onDragEnd} />
       )
@@ -141,7 +162,7 @@ class SearchHome extends Component {
             height={'100%'}
             lat={this.props.determinedLocation.lat || 34.024212}
             lng={this.props.determinedLocation.lng || -118.496475}
-            zoom={12}
+            zoom={13}
             loadingMessage={'Be happy'}
             params={{v: '3.exp', key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8'}}
             onMapCreated={this.onMapCreated}>
@@ -173,16 +194,4 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchHome)
-
-
-
-   //          <InfoWindow
-   //            lat={coords.lat}
-   //            lng={coords.lng}
-   //            onCloseClick={this.onCloseClick} />
-   //          <Circle
-   //            lat={coords.lat}
-   //            lng={coords.lng}
-   //            radius={500}
-   //            onClick={this.onClick} />
 

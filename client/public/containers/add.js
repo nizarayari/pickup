@@ -4,7 +4,7 @@ import moment from 'moment';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { submitGame } from '../actions/index';
+import { submitGame, clearPossibleLocations } from '../actions/index';
 
 class Add extends Component { 
   constructor(props) {
@@ -60,6 +60,7 @@ class Add extends Component {
     if(this.validate.call(this)) {
       let arrStringified = JSON.stringify([]);
       this.props.submitGame( { sport: this.state.sport, rules: this.state.rules, time: this.state.time, location: address, originalPlayers: this.state.original_players, joinedPlayers: arrStringified, playersNeeded: this.state.needed_players, created_by: this.state.created_by } )
+      this.props.clearPossibleLocations();
     }
   }
 
@@ -167,7 +168,7 @@ render() {
 
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ submitGame }, dispatch);
+  return bindActionCreators({ submitGame, clearPossibleLocations }, dispatch);
 }
 
 function mapStateToProps(state) {
