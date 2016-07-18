@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { searchGames } from '../actions/index';
+import { searchGames, clearPossibleLocations } from '../actions/index';
 import $ from 'jquery';
 
 class Search extends Component { 
@@ -48,7 +48,8 @@ class Search extends Component {
         locationInput: ''
       })
     }
-    this.props.searchGames( { sport: this.state.dropDownSport, location: fixedLocation } )
+    this.props.searchGames( { sport: this.state.dropDownSport, location: fixedLocation } );
+    this.props.clearPossibleLocations();
   }
 
   onLocationEnter(event) {
@@ -70,9 +71,13 @@ render() {
           </div>
 
           <div>
-            <form onSubmit={this.onLocationSubmit.bind(this)}>
-              <input value={this.state.locationInput} onChange={this.onLocationEnter.bind(this)} type='text' placeholder='Search'/>
+            <form className="inputBox" onSubmit={this.onLocationSubmit.bind(this)}>
+              <input value={this.state.locationInput} onChange={this.onLocationEnter.bind(this)} type='text' placeholder='Enter a Location'/>
             </form>   
+          </div>
+
+          <div>
+            <h5 className="center-align"><strong>Welcome to PickUp! Enter your location to find a game near you!</strong></h5>
           </div>
           
         </div>           
@@ -88,7 +93,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({ searchGames }, dispatch);
+  return bindActionCreators({ searchGames, clearPossibleLocations }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)

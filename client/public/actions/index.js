@@ -6,7 +6,14 @@ export const GET_GAMES = 'GET-GAMES';
 export const SEARCH_GAMES = 'SEARCH-GAMES'; 
 export const SUBMIT_PLAYER = 'SUBMIT-PLAYER'; 
 export const POSSIBLE_LOCATIONS = 'POSSIBLE-LOCATIONS'; 
-export const DETERMINED_LOCATION = 'DETERMINED-LOCATION'; 
+export const DETERMINED_LOCATION = 'DETERMINED-LOCATION';
+export const CLEAR_LOCATIONS = 'CLEAR-LOCATIONS';
+
+export function clearPossibleLocations() {
+  return function(dispatch) {
+    dispatch({ type: CLEAR_LOCATIONS, payload: [] })
+  }
+}
 
 export function searchGames(searchObj) {
   return function(dispatch) {
@@ -32,11 +39,6 @@ export function searchGames(searchObj) {
           return axios.get('/api/games', searchObj)
       }
     })
-    // axios({
-    //   method: 'GET',
-    //   url: 'api/games',
-    //   params: searchObj,
-    // })
       .then(function(response) {
         browserHistory.push('/SearchHome')
         dispatch({ type: SEARCH_GAMES, payload: response.data })

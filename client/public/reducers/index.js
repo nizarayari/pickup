@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   getGames: GetGamesReducer,
   searchGames: SearchGamesReducer,
   possibleLocations: PossibleLocations,
-  determinedLocation: DeterminedLocation
+  determinedLocation: DeterminedLocation,
 })
 
 export default rootReducer;
