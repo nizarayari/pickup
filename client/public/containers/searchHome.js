@@ -16,10 +16,6 @@ class SearchHome extends Component {
 
   }
 
-  componentWillMount() {
-    $()
-  }
-
   onMapCreated(map) {
     map.setOptions({
       disableDefaultUI: true
