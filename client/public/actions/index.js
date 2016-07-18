@@ -23,12 +23,10 @@ export function searchGames(searchObj) {
     params: {address: searchObj.location, key: 'AIzaSyAlCGs74Skpymw9LLAjkMg-8jQ1gIue9n8'}
   })
     .then(function(response) {
-      console.log('outside if statement', response.data)
       if(response.data.results.length > 1) {
         dispatch({ type: POSSIBLE_LOCATIONS, payload: response.data.results })
         throw new Error('error on search in actions')
       } else {
-
           searchObj.lat = response.data.results[0].geometry.location.lat
           searchObj.lng = response.data.results[0].geometry.location.lng
           searchObj.address = response.data.results[0].formatted_address
@@ -51,8 +49,6 @@ export function searchGames(searchObj) {
 
 export function submitGame(gameObj) {
   return function(dispatch) {
-
-
     axios({
       method: 'GET',
       url: 'https://maps.googleapis.com/maps/api/geocode/json',
@@ -63,7 +59,6 @@ export function submitGame(gameObj) {
           dispatch({ type: POSSIBLE_LOCATIONS, payload: response.data.results })
           throw new Error('jist an error')
         } else {
-          console.log('inside else')
           gameObj.lat = response.data.results[0].geometry.location.lat
           gameObj.lng = response.data.results[0].geometry.location.lng
           gameObj.address = response.data.results[0].formatted_address
@@ -72,14 +67,9 @@ export function submitGame(gameObj) {
         }
       })
             .then(function(response) {
-              console.log('above the acios get call line 44')
              return axios.get('/api/games')
-             console.log('axios get call on line 46')
             })
             .then(function(response) {
-          console.log('inside second then statement')
-
-              console.log(response, 'response data')
               browserHistory.push('/GameListHome')
               dispatch({ type: GET_GAMES, payload: response.data })
             })
@@ -89,24 +79,16 @@ export function submitGame(gameObj) {
       .catch(function(error) {
         console.log(error, 'the error for the maps get call')
       })
-
-
   }    
 }
 
 export function submitPlayer(playerObj) {
-  console.log('inside submitPlayer', playerObj)
-  // const fun = {id: 1, sport: "grape", rules: "7 suck", time: 700, location: [{lat: '48.784284', long: '-9.242931'}], current_players: 9, playersNeeded: 8, created_by: "merik"}
   return function(dispatch) {
-  console.log('inside dispatch', dispatch)
-
     axios.put('/api/games', playerObj)
       .then(function(response) {
-       console.log('inside then', response)
         dispatch({ type: SUBMIT_PLAYER, payload: response.data})
       })
       .catch(function(error) {
-        console.log(error, 'there was an error in the submit player action')
       })
   }
 }

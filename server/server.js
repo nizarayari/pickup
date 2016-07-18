@@ -23,9 +23,9 @@ var port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-app.use(express.static('../client'));
+app.use(express.static('./client'));
 app.use('/api', pickups);
-app.use('*', express.static(__dirname + '/../client'));
+app.use('*', express.static(__dirname + '/client'));
 // app.use('/api', locations);
 
 
