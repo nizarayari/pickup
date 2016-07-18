@@ -6,7 +6,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div >
+      <div>
         <h1 className="center-align">PickUp</h1>
         <div className="valign-wrapper">
           <div className="valign center-block">

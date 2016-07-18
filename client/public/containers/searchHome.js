@@ -94,16 +94,15 @@ class SearchHome extends Component {
 
                 <div className="card card-panel hoverable">
                   <div className="card-title">
-                    <h3>Game: {game.sport}</h3>
+                    <h5>Game: {game.sport}</h5>
                   </div>
-                    <h3 className="left-align">Players Needed: {game.playersNeeded}</h3>
-                    <h4 className="center-align">Time: {moment(game.time).format('MMMM Do YYYY, h:mm a')}</h4>
-                    <h4 className="center-align">Location: {game.location}</h4>
-                    <p className="card-text">Rules: {game.rules}</p>
+                    <h5 className="left-align">Players Needed: {game.playersNeeded}</h5>
+                    <h5 className="left-align">Time: {moment(game.time).format('MMMM Do YYYY, h:mm a')}</h5>
+                    <h5 className="left-align">Location: {game.location}</h5>
+                    <h5 className="card-text">Rules: {game.rules}</h5>
                     {this.renderAction(game.playersNeeded)}
                     <p className="left-align">Host: {game.created_by}</p>
-                    <ul>
-                      Joined Players: {this.displayJoinedPlayer(game.joinedPlayers)}
+                    <ul>Joined Players: <li>{this.displayJoinedPlayer(game.joinedPlayers)}</li>
                     </ul>
                 </div>
 
