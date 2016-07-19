@@ -6,6 +6,10 @@ module.exports = {
     path: __dirname + '/client/dist',
     filename: "bundle.js"
   },
+  devServer: {
+    contentBase: "./src",
+    hot: true
+  },
   module: {
     loaders: [
       {
