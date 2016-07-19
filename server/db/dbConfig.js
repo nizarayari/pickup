@@ -5,10 +5,10 @@ var connection = {
   // connectTimeout : 60 * 60 * 1000,
   // aqcuireTimeout : 60 * 60 * 1000,
   // timeout : 60 * 60 * 1000
-  host : process.env.DB_HOST,
-  user : process.env.DB_USERNAME,
-  password : process.env.DB_PASSWORD,
-  database : process.env.DB_DB,
+  host : "pickups.justinpchen.com",
+  user : "psbyron3",
+  password : "cocacola1",
+  database : "m2p_pickups_db",
   charset : 'utf8'
 }
 
@@ -19,5 +19,6 @@ var connection = {
 //   port : 3000,
 //   database : "pickups"
 // });
+
 
 module.exports = connection;
