@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js"
+    "webpack": "./node_modeules/webpack/bin/webpack.js",
+    "start": "nodemon server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",
