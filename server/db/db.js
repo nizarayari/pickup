@@ -3,13 +3,13 @@
 var mysql = require('mysql');
 var fs = require('fs');
 var tables = require('./tables.js');
-var db_config = require('./dbConfig.js');
+var dbconfig = require('./dbConfig.js');
 
 
 
 //init connection from Poll_db
 var createConnection = function() {
-  connection = mysql.createConnection(db_config);
+  connection = mysql.createConnection(dbconfig);
   
   // connection.connect(function (err) {
   //   if (err) {
