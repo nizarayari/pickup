@@ -3,6 +3,7 @@ import $ from 'jquery';
 import path from 'path';
 import { Link } from 'react-router';
 
+
 class NavBar extends Component {
   constructor(props) {
     super(props)
